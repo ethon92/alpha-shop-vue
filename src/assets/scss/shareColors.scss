@@ -1,0 +1,26 @@
+@function getMapColor($key) {
+  @return map-get($light-mode, $key)
+}
+
+$light-mode: (
+  "white": #fff,
+  "black": #000,
+  "nav-border-color": rgba(42, 42, 42, 0.1),
+  "stepper-color": #afb1bd,
+  "input-border-color": #4a4a4a,
+  "shipping-border-color": #f0f0f5,
+  "form-text-title-color": #808080,
+  "light-gray": #a7aaaf,
+  "footer-background-color": #e5e5e5,
+  "body-background-color": #fff,
+  "text-color": #000,
+  "stepper-connect-line-color": #000,
+  "input-placeholder-color": #999999,
+  "shop-cart-color": #fff,
+  "shop-cart-border-color": #f0f0f5,
+  "divide-line-color": #a7aaaf,
+  "footer-text-color": #000,
+  "shipping-text-color": #000,
+  "radio-background-color": #fff,
+  "radio-checked-color": #2a2a2a
+);
