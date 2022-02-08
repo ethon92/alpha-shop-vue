@@ -1,5 +1,7 @@
 <template>
-  <button :class="stepButtonValue.classObj">{{ stepButtonValue.text }}</button>
+  <router-link :to="stepButtonValue.link">
+    <button :class="stepButtonValue.classObj">{{ stepButtonValue.text }}</button>
+  </router-link>
 </template>
 
 <script>
@@ -22,9 +24,21 @@ export default {
     border-radius: 5px;
     padding: 1rem;
     color: getMapColor('white');
-    width: 150%;
+    width: 100%;
     background-color: getMapColor('next-button-color');
     cursor: pointer;
+    &:hover {
+      box-shadow: 1px 1px 5px getMapColor('light-gray');
+    }
+  }
+
+  .steps__previous-step {
+    padding: 1rem;
+    background-color: getMapColor('body-background-color');
+    border-style: none;
+    cursor: pointer;
+    color: getMapColor('text-color');
+    width: 100%;
     &:hover {
       box-shadow: 1px 1px 5px getMapColor('light-gray');
     }

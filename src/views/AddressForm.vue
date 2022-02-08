@@ -11,9 +11,7 @@
         <BaseDivideLine />
       </div>
       <div class="address-form__steps">
-        <router-link to="/shipping-form">
-          <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
-        </router-link>
+        <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
     <div class="address-form__shopping-cart">
@@ -141,7 +139,8 @@ export default {
         text: '下一步 →',
         classObj: {
           'steps__next-step': true
-        }
+        },
+        link: '/shipping-form'
       }]
     }
   },
@@ -204,8 +203,9 @@ export default {
       }
       > .address-form__steps {
         position: absolute;
-        right: 10%;
+        right: 0;
         bottom: 5%;
+        width: 30%;
       }
     }
     > .address-form__shopping-cart {
