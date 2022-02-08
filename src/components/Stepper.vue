@@ -42,6 +42,7 @@ export default {
   .stepper__container {
     display: flex;
     justify-content: space-between;
+    margin-top: 2rem;
     > .stepper__container--step {
       display: flex;
       align-items: center;
