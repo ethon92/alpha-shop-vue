@@ -149,11 +149,10 @@ export default {
 
 <style lang="scss">
   @import '../assets/scss/shareColors.scss';
+  @import '../assets/scss/shareStyle.scss';
 
   .main__address-form {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-gap: 1rem;
+    @extend %mainFrameStyle;
 
     // stepper2的連接線加粗
     > .address-form__container > .stepper > .stepper__container > .stepper__container--step {
@@ -168,11 +167,7 @@ export default {
         margin-top: 2rem;
       }
       > .address-form__form-parts {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: repeat(3, auto);
-        grid-gap: 1rem;
-        margin-top: 1rem;
+        @extend %formPartsShare;
         grid-template-areas:
           "title title name name name name"
           "phoneNum phoneNum phoneNum email email email"

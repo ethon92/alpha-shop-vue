@@ -33,6 +33,16 @@ export default {
   .select-wrapper {
     display: flex;
     flex-direction: column;
+    position: relative;
+    // 三角形按鈕樣式
+    &::after {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      content: "\25BE";
+      z-index: -1;
+      color: getMapColor('text-color');
+    }
     > select {
       -webkit-appearance: none;
       padding: 0.8rem;
@@ -42,15 +52,6 @@ export default {
       color: getMapColor('text-color');
       position: relative;
       z-index: 0;
-      // 三角形無法顯示
-      &::after {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        content: "\25BE";
-        z-index: -1;
-        color: getMapColor('text-color');
-      }
       &:hover,
       &:focus {
         border: 2px solid getMapColor('text-color');

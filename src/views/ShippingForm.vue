@@ -12,7 +12,7 @@
         <BaseDivideLine />
       </div>
       <div class="shipping-form__steps">
-        <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :stepButtonValue="stepButtonValue"/>
+        <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
     <div class="shipping-form__shopping-cart">
@@ -114,12 +114,10 @@ export default {
 
 <style lang="scss">
   @import '../assets/scss/shareColors.scss';
+  @import '../assets/scss/shareStyle.scss';
 
   .main__shipping-form {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-gap: 1rem;
-
+    @extend %mainFrameStyle;
 
     > .shipping-form__container > .stepper > .stepper__container > .stepper__container--step {
       &:nth-child(2) {
@@ -127,24 +125,22 @@ export default {
           color: getMapColor("black");
           border: 1px solid getMapColor("black");
         }
+        > .stepper__container--title {
+          color: getMapColor("black");
+        }
+      }
+      > .stepper__container--connect-line::before {
+        height: 2px;
       }
     }
 
     > .shipping-form__container {
       height: 130%;
       > .divide-line-wrapper {
-        margin-top: 5rem;
-        > .divide-line::before {
-          width: 44.5%;
-        }
+        @extend %divdeLineShareStyle;
       }
       > .shipping-form__steps {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 8rem;
-        > a {
-          flex-basis: 30%;
-        }
+        @extend %stepShareStyle;
       }
       > .shipping-form__detail {
         margin-top: 2rem;

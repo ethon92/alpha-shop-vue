@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="stepButtonValue.link">
+  <router-link :to="stepButtonValue.link" class="steps__link">
     <button :class="stepButtonValue.classObj">{{ stepButtonValue.text }}</button>
   </router-link>
 </template>

@@ -47,16 +47,22 @@ export default {
       display: flex;
       align-items: center;
       position: relative;
-      &:nth-child(1) > .stepper__container--circle {
-        background-color: getMapColor("black");
-        color: getMapColor("white");
-        border: 1px solid getMapColor("black");
+      &:nth-child(1) {
+        > .stepper__container--circle {
+          background-color: getMapColor("black");
+          color: getMapColor("white");
+          border: 1px solid getMapColor("black");
+        }
+        > .stepper__container--title {
+          color: getMapColor("black");
+        }
       }
       > .stepper__container--circle {
         color: getMapColor("stepper-color");
       }
       > .stepper__container--title {
         margin-left: 0.5rem;
+        color: getMapColor("stepper-color");
       }
     }
   }
