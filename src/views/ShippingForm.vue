@@ -5,7 +5,7 @@
       <div class="shipping-form__detail">
         <h3 class="shipping-form__title">運送方式</h3>
         <form class="shipping-form__form-parts">
-          <BaseRadioInput v-for="radioInputValue in radioInputValues" :key="radioInputValue.id" :radioInputValue="radioInputValue" @control-border-line="afterClickRadio" />
+          <BaseRadioInput v-for="radioInputValue in radioInputValues" :key="radioInputValue.id" :radioInputValue="radioInputValue" @control-radio="afterClickRadio" />
         </form>
       </div>
       <div class="divide-line-wrapper">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="shipping-form__shopping-cart">
-      <ShoppingCart :shipping-fee="shippingFee"/>
+      <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
     </div>
   </section>
 </template>
@@ -63,7 +63,7 @@ export default {
         labelTitle: '標準運送',
         labelTime: '約3~7工作天',
         shippingPrice: '免費',
-        isActive: false,
+        isActive: false
       },{
         id: uuidv4(),
         radioId: 'shipping-dhl',
@@ -72,7 +72,7 @@ export default {
         labelTitle: 'DHL 貨運',
         labelTime: '48小時內送達',
         shippingPrice: '$500',
-        isActive: false,
+        isActive: false
       }],
       stepButtonValues: [{
         id: uuidv4(),
@@ -90,11 +90,12 @@ export default {
         },
         link: '/payment-info-form'
       }],
-      shippingFee: ''
+      initialShippingFee: ''
     }
   },
   methods: {
     afterClickRadio(id) {
+      // 運送方式選到時的外框樣式設定
       this.radioInputValues = this.radioInputValues.map( radioInputValue => {
         if(radioInputValue.id === id) {
           return {
@@ -108,10 +109,15 @@ export default {
           }
         }
       })
-      
-      this.shippingFee = this.radioInputValues.filter(radioInputValue => {
-        return radioInputValue.id === id
-      })[0].shippingPrice
+
+      // 將選到的運費放入shoppingCart中
+      this.initialShippingFee = this.radioInputValues.filter(radioInputValue => radioInputValue.id === id)[0].shippingPrice
+
+      // 將運費儲存至localStorage
+      this.saveToStorage('shipping-fee', this.initialShippingFee)
+    },
+    saveToStorage(itemName, item) {
+      localStorage.setItem(itemName, JSON.stringify(item))
     }
   }
 }

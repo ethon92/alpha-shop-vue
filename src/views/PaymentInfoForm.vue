@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="payment-info-form__shopping-cart">
-      <ShoppingCart :shipping-fee="shippingFee"/>
+      <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
     </div>
   </section>
 </template>
@@ -103,9 +103,17 @@ export default {
         labelFor: 'verify-number',
         placeholder: '123'
       }],
-      shippingFee: ''
+      initialShippingFee: ''
     }
   },
+  methods: {
+    getShippingFee() {
+      this.initialShippingFee = JSON.parse(localStorage.getItem('shipping-fee')) || ''
+    }
+  },
+  created() {
+    this.getShippingFee()
+  }
 }
 </script>
 

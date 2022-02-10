@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="address-form__shopping-cart">
-      <ShoppingCart :shipping-fee="shippingFee"/>
+      <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
     </div>
   </section>
 </template>
@@ -142,10 +142,18 @@ export default {
         },
         link: '/shipping-form'
       }],
-      shippingFee: '',
+      initialShippingFee: '',
       totalCost: 0
     }
   },
+  methods: {
+    getShippingFee() {
+      this.initialShippingFee = JSON.parse(localStorage.getItem('shipping-fee')) || ''
+    }
+  },
+  created() {
+    this.getShippingFee()
+  }
 }
 </script>
 

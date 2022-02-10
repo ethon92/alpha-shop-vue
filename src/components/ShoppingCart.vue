@@ -45,7 +45,7 @@ const dummyData = {
 export default {
   name: 'ShoppingCart',
   props: {
-    shippingFee: {
+    initialShippingFee: {
       type: String,
       required: true
     }
@@ -53,18 +53,20 @@ export default {
   data() {
     return {
       shoppingCartProducts: [],
-      total: 0
+      total: 0,
+      shippingFee: this.initialShippingFee
     }
   },
   created() {
     this.fetchShoppingCartProduct()
+    this.getShippingFee()
   },
   methods: {
     // 向API索取購物籃資料的函式
     fetchShoppingCartProduct() {
       // TODO：透過API向伺服器索取購物籃的購物資料
 
-      this.shoppingCartProducts = dummyData.shoppingCartProducts
+      this.shoppingCartProducts = JSON.parse(localStorage.getItem('shopping-cart-products')) || dummyData.shoppingCartProducts
     },
     // 增加商品數量的函式
     addQuantity(id) {
@@ -78,6 +80,8 @@ export default {
             return product
         }
       })
+
+      this.saveToStorage(this.shoppingCartProducts)
     },
     // 減少商品數量的函式
     minusQuantity(id) {
@@ -91,6 +95,8 @@ export default {
             return product
         }
       })
+
+      this.saveToStorage(this.shoppingCartProducts)
     },
     // 計算總金額的函式
     addSum() {
@@ -107,8 +113,15 @@ export default {
       } else {
         this.total += fee
       }
-      
+
       return this.total
+    },
+    // 將資料儲存至localStorage中的函式
+    saveToStorage(products) {
+      localStorage.setItem('shopping-cart-products', JSON.stringify(products))
+    },
+    getShippingFee() {
+      this.shippingFee = JSON.parse(localStorage.getItem('shipping-fee')) || ''
     }
   },
   watch: {
@@ -123,6 +136,11 @@ export default {
       handler: function() {
         this.addSum()
       },
+    },
+    initialShippingFee: {
+      handler: function() {
+        this.shippingFee = this.initialShippingFee
+      }
     }
   },
   filters: {
