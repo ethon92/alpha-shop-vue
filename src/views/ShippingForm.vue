@@ -5,7 +5,7 @@
       <div class="shipping-form__detail">
         <h3 class="shipping-form__title">運送方式</h3>
         <form class="shipping-form__form-parts">
-          <BaseRadioInput v-for="radioInputValue in radioInputValues" :key="radioInputValue.id" :radioInputValue="radioInputValue" @control-border-line="afterClickRadio"/>
+          <BaseRadioInput v-for="radioInputValue in radioInputValues" :key="radioInputValue.id" :radioInputValue="radioInputValue" @control-border-line="afterClickRadio" />
         </form>
       </div>
       <div class="divide-line-wrapper">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="shipping-form__shopping-cart">
-      <ShoppingCart />
+      <ShoppingCart :shipping-fee="shippingFee"/>
     </div>
   </section>
 </template>
@@ -72,7 +72,7 @@ export default {
         labelTitle: 'DHL 貨運',
         labelTime: '48小時內送達',
         shippingPrice: '$500',
-        isActive: false
+        isActive: false,
       }],
       stepButtonValues: [{
         id: uuidv4(),
@@ -89,7 +89,8 @@ export default {
           'steps__next-step': true
         },
         link: '/payment-info-form'
-      }]
+      }],
+      shippingFee: ''
     }
   },
   methods: {
@@ -107,6 +108,10 @@ export default {
           }
         }
       })
+      
+      this.shippingFee = this.radioInputValues.filter(radioInputValue => {
+        return radioInputValue.id === id
+      })[0].shippingPrice
     }
   }
 }
@@ -119,6 +124,7 @@ export default {
   .main__shipping-form {
     @extend %mainFrameStyle;
 
+    // stepper的樣式設定
     > .shipping-form__container > .stepper > .stepper__container > .stepper__container--step {
       &:nth-child(2) {
         > .stepper__container--circle {
@@ -134,21 +140,20 @@ export default {
       }
     }
 
+    // shippingForm的樣式設定
     > .shipping-form__container {
       height: 130%;
       > .divide-line-wrapper {
         @extend %divdeLineShareStyle;
+        margin-top: 9rem;
       }
       > .shipping-form__steps {
         @extend %stepShareStyle;
+        margin-top: 10.5rem;
       }
       > .shipping-form__detail {
         margin-top: 2rem;
       }
-    }
-
-    > .shipping-form__shopping-cart {
-      border: 1px solid black;
     }
   }
 </style>

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="payment-info-form__shopping-cart">
-      <ShoppingCart />
+      <ShoppingCart :shipping-fee="shippingFee"/>
     </div>
   </section>
 </template>
@@ -102,7 +102,8 @@ export default {
         label: 'CVC/CCV',
         labelFor: 'verify-number',
         placeholder: '123'
-      }]
+      }],
+      shippingFee: ''
     }
   },
 }
@@ -115,7 +116,7 @@ export default {
   .main__payment-info-form {
     @extend %mainFrameStyle;
 
-    // stepper樣式設定
+    // stepper的樣式設定
     > .payment-info-form__container > .stepper > .stepper__container > .stepper__container--step {
       &:nth-child(2) {
         > .stepper__container--circle {
@@ -141,6 +142,7 @@ export default {
       }
     }
 
+    // paymentInfoForm的樣式設定
     > .payment-info-form__container {
       > .payment-info-form__form-parts {
         @extend %formPartsShare;
@@ -165,18 +167,17 @@ export default {
       }
       > .divide-line-wrapper {
         @extend %divdeLineShareStyle;
+        margin-top: 5rem;
       }
       > .payment-info-form__steps {
         @extend %stepShareStyle;
+        margin-top: 6.5rem;
       }
       > .payment-info-form__title {
         margin-top: 2rem;
       }
     }
 
-    > .payment-info-form__shopping-cart {
-      border: 1px solid black;
-    }
   }
 
 </style>

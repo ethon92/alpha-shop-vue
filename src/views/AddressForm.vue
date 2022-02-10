@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="address-form__shopping-cart">
-      <ShoppingCart />
+      <ShoppingCart :shipping-fee="shippingFee"/>
     </div>
   </section>
 </template>
@@ -141,7 +141,9 @@ export default {
           'steps__next-step': true
         },
         link: '/shipping-form'
-      }]
+      }],
+      shippingFee: '',
+      totalCost: 0
     }
   },
 }
@@ -154,12 +156,14 @@ export default {
   .main__address-form {
     @extend %mainFrameStyle;
 
-    // stepper2的連接線加粗
+    // stepper的樣式設定
     > .address-form__container > .stepper > .stepper__container > .stepper__container--step {
       &:nth-child(2) > .stepper__container--connect-line::before {
         height: 2px;
       }
     }
+
+    // addressForm的樣式設定
     > .address-form__container {
       position: relative;
       height: 130%;
@@ -199,12 +203,10 @@ export default {
       > .address-form__steps {
         position: absolute;
         right: 0;
-        bottom: 5%;
+        top: 70%;
         width: 30%;
       }
     }
-    > .address-form__shopping-cart {
-      border: 1px solid black;
-    }
+
   }
 </style>

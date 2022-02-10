@@ -1,15 +1,14 @@
 // 表單與購物車的公同排版樣式
 %mainFrameStyle {
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-gap: 1rem;
+  grid-template-columns: 50% 30%;
+  grid-gap: 10rem;
 }
 
 // PaymentInfoForm與ShippingForm的上下一步共同樣式
 %stepShareStyle {
   display: flex;
   justify-content: space-between;
-  margin-top: 8rem;
   > .steps__link {
     flex-basis: 30%;
   }
@@ -17,9 +16,8 @@
 
 // PaymentInfoForm與ShippingForm的分隔線共同樣式
 %divdeLineShareStyle {
-  margin-top: 5rem;
   > .divide-line::before {
-    width: 44.5%;
+    width: 39.5%;
   }
 }
 
@@ -28,7 +26,8 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(3, auto);
-  grid-gap: 1rem
+  grid-gap: 1rem;
+  margin-top: 1rem;
 }
 
 .stepper__container--title {

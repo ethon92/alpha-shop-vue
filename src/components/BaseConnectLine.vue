@@ -10,7 +10,7 @@
     position: absolute;
     height: 1px;
     background-color: getMapColor("black");
-    left: -150%;
-    right: 150%;
+    left: -120%;
+    right: 120%;
   }
 </style>
