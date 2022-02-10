@@ -63,7 +63,8 @@ export default {
         labelTitle: '標準運送',
         labelTime: '約3~7工作天',
         shippingPrice: '免費',
-        isActive: false
+        isActive: false,
+        isChecked: false
       },{
         id: uuidv4(),
         radioId: 'shipping-dhl',
@@ -72,7 +73,8 @@ export default {
         labelTitle: 'DHL 貨運',
         labelTime: '48小時內送達',
         shippingPrice: '$500',
-        isActive: false
+        isActive: false,
+        isChecked: false
       }],
       stepButtonValues: [{
         id: uuidv4(),
@@ -95,20 +97,25 @@ export default {
   },
   methods: {
     afterClickRadio(id) {
-      // 運送方式選到時的外框樣式設定
+      // 運送方式選到時的外框樣式設定以及radio checked屬性設定
       this.radioInputValues = this.radioInputValues.map( radioInputValue => {
         if(radioInputValue.id === id) {
           return {
             ...radioInputValue,
-            isActive: true
+            isActive: true,
+            isChecked: true
           }
         }else{
           return {
             ...radioInputValue,
-            isActive: false
+            isActive: false,
+            isChecked: false
           }
         }
       })
+
+      // 將radioInputValues儲存至localStorage中
+      this.saveToStorage('radio-input-values', this.radioInputValues)
 
       // 將選到的運費放入shoppingCart中
       this.initialShippingFee = this.radioInputValues.filter(radioInputValue => radioInputValue.id === id)[0].shippingPrice
@@ -116,9 +123,13 @@ export default {
       // 將運費儲存至localStorage
       this.saveToStorage('shipping-fee', this.initialShippingFee)
     },
+    // 儲存至localStorage的方法
     saveToStorage(itemName, item) {
       localStorage.setItem(itemName, JSON.stringify(item))
     }
+  },
+  created() {
+    this.radioInputValues = JSON.parse(localStorage.getItem('radio-input-values')) || this.radioInputValues
   }
 }
 </script>

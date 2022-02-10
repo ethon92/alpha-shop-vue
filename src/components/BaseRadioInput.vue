@@ -1,7 +1,7 @@
 <template>
   <div class="radio-input-wrapper">
     <div class="radio-input-wrapper__container" :class="{ active: radioInputValue.isActive }">
-      <input type="radio" :id="radioInputValue.radioId" :name="radioInputValue.radioName" @click="controlRadio(radioInputValue.id)">
+      <input type="radio" :id="radioInputValue.radioId" :name="radioInputValue.radioName" :checked="radioInputValue.isChecked" @click="controlRadio(radioInputValue.id)">
       <label class="radio-input-wrapper__description" :for="radioInputValue.labelFor">
         <div class="description__title">{{ radioInputValue.labelTitle }}</div>
         <div class="description__time">{{ radioInputValue.labelTime }}</div>
