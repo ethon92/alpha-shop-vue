@@ -15,7 +15,7 @@
     </div>
     <div class="shopping-cart__shipping-fee">
       <div class="shopping-cart__shipping-fee--title">運費</div>
-      <div class="shopping-cart__shipping-fee--price">{{ shippingFee ? shippingFee : '-----'}}</div>
+      <div class="shopping-cart__shipping-fee--price">{{ shippingFee ? shippingFee : '免費'}}</div>
     </div>
     <div class="shopping-cart__amount">
       <div class="shopping-cart__amount--title">小計</div>

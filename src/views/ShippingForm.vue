@@ -63,8 +63,8 @@ export default {
         labelTitle: '標準運送',
         labelTime: '約3~7工作天',
         shippingPrice: '免費',
-        isActive: false,
-        isChecked: false
+        isActive: true,
+        isChecked: true
       },{
         id: uuidv4(),
         radioId: 'shipping-dhl',
