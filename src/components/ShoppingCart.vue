@@ -44,10 +44,15 @@ const dummyData = {
 
 export default {
   name: 'ShoppingCart',
+  // props: {
+  //   initialShippingFee: {
+  //     type: String,
+  //     required: true
+  //   }
+  // },
   props: {
-    initialShippingFee: {
-      type: String,
-      required: true
+    fee: {
+      type: String
     }
   },
   data() {

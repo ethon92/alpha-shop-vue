@@ -13,15 +13,11 @@
         <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
-    <div class="payment-info-form__shopping-cart">
-      <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
-    </div>
   </section>
 </template>
 
 <script>
 import Stepper from '../components/Stepper.vue'
-import ShoppingCart from '../components/ShoppingCart.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseTextInput from '../components/BaseTextInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
@@ -32,7 +28,6 @@ export default {
   name: 'PaymentInfoForm',
   components: {
     Stepper,
-    ShoppingCart,
     BaseStepButton,
     BaseTextInput,
     BaseDivideLine
@@ -122,7 +117,7 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__payment-info-form {
-    @extend %mainFrameStyle;
+    // @extend %mainFrameStyle;
 
     // stepper的樣式設定
     > .payment-info-form__container > .stepper > .stepper__container > .stepper__container--step {

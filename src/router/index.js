@@ -11,9 +11,10 @@ const routes = [
     component: AddressForm
   },
   {
-    path: '/shipping-form',
+    path: '/shipping-form/:fee',
     name: 'ShippingForm',
-    component: () => import ('../views/ShippingForm')
+    component: () => import ('../views/ShippingForm'),
+    props: true
   },
   {
     path: '/payment-info-form',

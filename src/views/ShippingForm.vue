@@ -15,15 +15,15 @@
         <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
-    <div class="shipping-form__shopping-cart">
+    <!-- <div class="shipping-form__shopping-cart">
       <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script>
 import Stepper from '../components/Stepper.vue'
-import ShoppingCart from '../components/ShoppingCart.vue'
+// import ShoppingCart from '../components/ShoppingCart.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseRadioInput from '../components/BaseRadioInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
@@ -33,7 +33,7 @@ export default {
   name: 'ShippingForm',
   components: {
     Stepper,
-    ShoppingCart,
+    // ShoppingCart
     BaseStepButton,
     BaseRadioInput,
     BaseDivideLine
@@ -120,6 +120,7 @@ export default {
       // 將選到的運費放入shoppingCart中
       this.initialShippingFee = this.radioInputValues.filter(radioInputValue => radioInputValue.id === id)[0].shippingPrice
 
+      this.$router.push({ name: 'ShippingForm', params: { fee: this.initialShippingFee }})
       // 將運費儲存至localStorage
       this.saveToStorage('shipping-fee', this.initialShippingFee)
     },
@@ -130,6 +131,11 @@ export default {
   },
   created() {
     this.radioInputValues = JSON.parse(localStorage.getItem('radio-input-values')) || this.radioInputValues
+  },
+  props: {
+    fee: {
+      type: String
+    }
   }
 }
 </script>
@@ -139,7 +145,7 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__shipping-form {
-    @extend %mainFrameStyle;
+    // @extend %mainFrameStyle;
 
     // stepper的樣式設定
     > .shipping-form__container > .stepper > .stepper__container > .stepper__container--step {

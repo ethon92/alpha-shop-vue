@@ -14,15 +14,11 @@
         <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
-    <div class="address-form__shopping-cart">
-      <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
-    </div>
   </section>
 </template>
 
 <script>
 import Stepper from '../components/Stepper.vue'
-import ShoppingCart from '../components/ShoppingCart.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
 import BaseSelect from '../components/BaseSelect.vue'
@@ -33,7 +29,6 @@ export default {
   name: 'AddressForm',
   components: {
     Stepper,
-    ShoppingCart,
     BaseStepButton,
     BaseDivideLine,
     BaseSelect,
@@ -140,7 +135,7 @@ export default {
         classObj: {
           'steps__next-step': true
         },
-        link: '/shipping-form'
+        link: "shipping-form"
       }],
       initialShippingFee: '',
       totalCost: 0
@@ -162,7 +157,7 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__address-form {
-    @extend %mainFrameStyle;
+    // @extend %mainFrameStyle;
 
     // stepper的樣式設定
     > .address-form__container > .stepper > .stepper__container > .stepper__container--step {
