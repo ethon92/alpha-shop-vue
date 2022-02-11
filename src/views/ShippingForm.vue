@@ -120,7 +120,9 @@ export default {
       // 將選到的運費放入shoppingCart中
       this.initialShippingFee = this.radioInputValues.filter(radioInputValue => radioInputValue.id === id)[0].shippingPrice
 
+      // 將shippingFee放入網址中
       this.$router.push({ name: 'ShippingForm', params: { fee: this.initialShippingFee }})
+      
       // 將運費儲存至localStorage
       this.saveToStorage('shipping-fee', this.initialShippingFee)
     },
