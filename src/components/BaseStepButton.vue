@@ -1,7 +1,28 @@
 <template>
-  <router-link :to="stepButtonValue.link" class="steps__link">
-    <button :class="stepButtonValue.classObj">{{ stepButtonValue.text }}</button>
-  </router-link>
+  <div class="button-wrapper">
+    <!-- 因為address-form要使用submit事件，所以button外層不能被router link包住 -->
+    <button
+      v-if="stepButtonValue.isAddressFromButton" 
+      :class="stepButtonValue.classObj" 
+      @click="afterClick($event)"
+      type="submit"
+    >
+      {{ stepButtonValue.text }}
+    </button>
+    <router-link
+      v-else
+      class="steps__link" 
+      :to="stepButtonValue.link"
+    >
+      <button 
+        :class="stepButtonValue.classObj" 
+        @click="afterClick($event)"
+        type="submit"
+      >
+        {{ stepButtonValue.text }}
+      </button>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -12,7 +33,12 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
+  methods: {
+    afterClick(e) {
+      this.$emit('handle-click', e)
+    }
+  }  
 }
 </script>
 

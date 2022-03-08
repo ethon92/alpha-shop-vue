@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { storageFunction } from '../utils/mixins'
+
 const dummyData = {
   shoppingCartProducts: [{
     id: 1,
@@ -44,6 +46,7 @@ const dummyData = {
 
 export default {
   name: 'ShoppingCart',
+  mixins: [storageFunction],
   props: {
     initialShippingFee: {
       type: String,
@@ -59,7 +62,6 @@ export default {
   },
   created() {
     this.fetchShoppingCartProduct()
-    this.getShippingFee()
   },
   methods: {
     // 向API索取購物籃資料的函式
@@ -81,7 +83,7 @@ export default {
         }
       })
 
-      this.saveToStorage(this.shoppingCartProducts)
+      this.saveToStorage('shopping-cart-products', JSON.stringify(this.shoppingCartProducts))
     },
     // 減少商品數量的函式
     minusQuantity(id) {
@@ -96,7 +98,7 @@ export default {
         }
       })
 
-      this.saveToStorage(this.shoppingCartProducts)
+      this.saveToStorage('shopping-cart-products', JSON.stringify(this.shoppingCartProducts))
     },
     // 計算總金額的函式
     addSum() {
@@ -114,15 +116,10 @@ export default {
         this.total += fee
       }
 
+      this.saveToStorage('total-price', this.total)
+
       return this.total
     },
-    // 將資料儲存至localStorage中的函式
-    saveToStorage(products) {
-      localStorage.setItem('shopping-cart-products', JSON.stringify(products))
-    },
-    getShippingFee() {
-      this.shippingFee = JSON.parse(localStorage.getItem('shipping-fee')) || ''
-    }
   },
   watch: {
     // 利用watch監控購物籃與運費變動的函式

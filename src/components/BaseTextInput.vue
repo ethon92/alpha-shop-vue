@@ -1,7 +1,12 @@
 <template>
   <div class="text-input-wrapper" :class="textInputValue.classObj">
     <label :for="textInputValue.labelFor">{{ textInputValue.label }}</label>
-    <input type="text" :placeholder="textInputValue.placeholder">
+    <input 
+      type="text"
+      :name="textInputValue.inputName"
+      :placeholder="textInputValue.placeholder" 
+      v-model="textInputValue.text"
+    >
   </div>
 </template>
 

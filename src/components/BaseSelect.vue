@@ -1,10 +1,28 @@
 <template>
   <div class="select-wrapper" :class="selectValue.classObj">
     <label :for="selectValue.labelFor">{{ selectValue.label }}</label>
-    <select :name="selectValue.selectName" :id="selectValue.selectId" :required="selectValue.hasAttributeValue">
+    <select 
+      :name="selectValue.selectName" 
+      :id="selectValue.selectId" 
+      :required="selectValue.hasAttributeValue" 
+      v-model="selectValue.selected"
+    >
       <template v-for="option in selectValue.options">
-        <option v-if="isDefaultOption(option.value)" :key="option.id" :value="option.value" :disabled="selectValue.hasAttributeValue" :selected="selectValue.hasAttributeValue">{{ option.name }}</option>
-        <option v-else :key="option.id" :value="option.value">{{ option.name }}</option>
+        <option 
+          v-if="option.value === 'default'"
+          :key="option.id" :value="option.value" 
+          disabled
+          selected
+        >
+          {{ option.name }}
+        </option>
+        <option 
+          v-else 
+          :key="option.id" 
+          :value="option.value"
+        >
+          {{ option.name }}
+        </option>
       </template>
     </select>
   </div>
@@ -49,7 +67,7 @@ export default {
       border-radius: 5px;
       background-color: transparent;
       border: 1px solid getMapColor('input-border-color');
-      color: getMapColor('text-color');
+      // color: getMapColor('text-color');
       position: relative;
       z-index: 0;
       &:hover,

@@ -4,15 +4,25 @@
       <Stepper :step-infos="stepInfos"/>
       <h3 class="payment-info-form__title">付款資訊</h3>
       <form class="payment-info-form__form-parts">
-        <BaseTextInput v-for="textInputValue in textInputValues" :key="textInputValue.id" :text-input-value="textInputValue"/>
+        <BaseTextInput 
+          v-for="textInputValue in textInputValues" 
+          :key="textInputValue.id" 
+          :text-input-value="textInputValue"
+        />
+        <div class="payment-info-form__steps">
+          <BaseStepButton 
+            v-for="stepButtonValue in stepButtonValues" 
+            :key="stepButtonValue.id" 
+            :step-button-value="stepButtonValue"
+            @handle-click="afterClick"
+          />
+        </div>
       </form>
       <div class="divide-line-wrapper">
         <BaseDivideLine />
       </div>
-      <div class="payment-info-form__steps">
-        <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
-      </div>
     </div>
+    <BillModal :bill="bill" class="main__bill" @after-click="handleCloseBill"/>
   </section>
 </template>
 
@@ -21,16 +31,20 @@ import Stepper from '../components/Stepper.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseTextInput from '../components/BaseTextInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
+import BillModal from '../components/BillModal'
 import {v4 as uuidv4} from 'uuid'
+import { storageFunction } from '../utils/mixins'
 
 
 export default {
   name: 'PaymentInfoForm',
+  mixins: [storageFunction],
   components: {
     Stepper,
     BaseStepButton,
     BaseTextInput,
-    BaseDivideLine
+    BaseDivideLine,
+    BillModal
   },
   data() {
     return {
@@ -72,7 +86,9 @@ export default {
         },
         label: '持卡人姓名',
         labelFor: 'name',
-        placeholder: 'John Doe'
+        placeholder: 'John Doe',
+        text: '',
+        inputName: 'card-name'
       },{
         id: uuidv4(),
         classObj: {
@@ -80,7 +96,9 @@ export default {
         },
         label: '卡號',
         labelFor: 'card-number',
-        placeholder: '1111 2222 3333 4444'
+        placeholder: '1111 2222 3333 4444',
+        text: '',
+        inputName: 'card-number'
       },{
         id: uuidv4(),
         classObj: {
@@ -88,7 +106,9 @@ export default {
         },
         label: '有效期限',
         labelFor: 'valid-date',
-        placeholder: 'MM/YY'
+        placeholder: 'MM/YY',
+        text: '',
+        inputName: 'valid-date'
       },{
         id: uuidv4(),
         classObj: {
@@ -96,18 +116,78 @@ export default {
         },
         label: 'CVC/CCV',
         labelFor: 'verify-number',
-        placeholder: '123'
+        placeholder: '123',
+        text: '',
+        inputName: 'verify-number'
       }],
-      initialShippingFee: ''
+      initialShippingFee: '',
+      bill: {
+        title: '',
+        name: '',
+        phone: '',
+        email: '',
+        city: '',
+        address: '',
+        shippingFee: '',
+        cardName: '',
+        cardNumber: '',
+        expDate: '',
+        cvv: '',
+        totalPrice: '',
+        isChecked: false
+      }
     }
   },
   methods: {
-    getShippingFee() {
-      this.initialShippingFee = JSON.parse(localStorage.getItem('shipping-fee')) || ''
+    afterClick(e) {
+      const target = e.target
+      if (target.matches('.steps__next-step')) {
+        const cardName = this.textInputValues[0].text
+        const cardNumber = this.textInputValues[1].text
+        const validDate = this.textInputValues[2].text
+        const verifyNumber = this.textInputValues[3].text
+
+        this.saveToStorage('card-name', cardName)
+        this.saveToStorage('card-number', cardNumber)
+        this.saveToStorage('valid-date', validDate)
+        this.saveToStorage('verify-number', verifyNumber)
+
+
+        console.log(this.bill)
+        this.getBill()
+        this.bill.isChecked = true
+        
+      }
+    },
+    getPaymentInfoForm() {
+      this.textInputValues[0].text = localStorage.getItem('card-name')
+      this.textInputValues[1].text = localStorage.getItem('card-number')
+      this.textInputValues[2].text = localStorage.getItem('valid-date')
+      this.textInputValues[3].text = localStorage.getItem('verify-number')
+    },
+    getBill() {
+      this.bill = {
+        ...this.bill,
+        title: localStorage.getItem('title'),
+        name: localStorage.getItem('name'),
+        phone: localStorage.getItem('phone'),
+        email: localStorage.getItem('email'),
+        city: localStorage.getItem('city'),
+        address: localStorage.getItem('address'),
+        shippingFee: localStorage.getItem('shipping-fee'),
+        cardName: localStorage.getItem('card-name'),
+        cardNumber: localStorage.getItem('card-number'),
+        expDate: localStorage.getItem('valid-date'),
+        cvv: localStorage.getItem('verify-number'),
+        totalPrice: localStorage.getItem('total-price')
+      }
+    },
+    handleCloseBill() {
+      this.bill.isChecked = false
     }
   },
   created() {
-    this.getShippingFee()
+    this.getPaymentInfoForm()
   }
 }
 </script>
@@ -117,8 +197,6 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__payment-info-form {
-    // @extend %mainFrameStyle;
-
     // stepper的樣式設定
     > .payment-info-form__container > .stepper > .stepper__container > .stepper__container--step {
       &:nth-child(2) {
@@ -155,6 +233,7 @@ export default {
           "validDate validDate validDate verifyNum verifyNum verifyNum"
       }
       > .payment-info-form__form-parts {
+        position: relative;
         > .name {
           grid-area: name;
         }
@@ -167,20 +246,28 @@ export default {
         > .verify-number {
           grid-area: verifyNum;
         }
+        > .payment-info-form__steps {
+          @extend %stepShareStyle;
+          position: absolute;
+          bottom: -70%;
+          width: 100%;
+        }
       }
       > .divide-line-wrapper {
-        @extend %divdeLineShareStyle;
+        @extend %divideLineShareStyle;
         margin-top: 5rem;
-      }
-      > .payment-info-form__steps {
-        @extend %stepShareStyle;
-        margin-top: 6.5rem;
       }
       > .payment-info-form__title {
         margin-top: 2rem;
       }
     }
 
+    > .main__bill {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
 </style>

@@ -7,6 +7,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'home',
+    redirect: '/address-from'
+  },
+  {
+    path: '/address-from',
     name: 'AddressForm',
     component: AddressForm
   },

@@ -3,15 +3,15 @@
     <div class="address-form__container">
       <Stepper :step-infos="stepInfos"/>
       <h3 class="address-form__title">寄送地址</h3>
-      <form class="address-form__form-parts">
+      <form class="address-form__form-parts" @submit.prevent.stop="handleSubmit">
         <BaseSelect v-for="selectValue in selectValues" :key="selectValue.id" :select-value="selectValue"/>
         <BaseTextInput v-for="textInputValue in textInputValues" :key="textInputValue.id" :text-input-value="textInputValue"/>
+        <div class="address-form__steps">
+          <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue" />
+        </div>
       </form>
       <div class="divide-line-wrapper">
         <BaseDivideLine />
-      </div>
-      <div class="address-form__steps">
-        <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
   </section>
@@ -24,9 +24,11 @@ import BaseDivideLine from '../components/BaseDivideLine.vue'
 import BaseSelect from '../components/BaseSelect.vue'
 import BaseTextInput from '../components/BaseTextInput.vue'
 import {v4 as uuidv4} from 'uuid'
+import { storageFunction } from '../utils/mixins'
 
 export default {
   name: 'AddressForm',
+  mixins: [storageFunction],
   components: {
     Stepper,
     BaseStepButton,
@@ -63,13 +65,14 @@ export default {
         options: [{
           id: 1,
           name: '先生',
-          value: 'sir'
+          value: 'Mr.'
         },
         {
           id: 2,
           name: '小姐',
-          value: 'miss'
-        }]
+          value: 'Miss'
+        }],
+        selected: []
       },{
         id: uuidv4(),
         classObj: {
@@ -94,7 +97,8 @@ export default {
           id: 3,
           name: '新北',
           value: 'new-taipei'
-        }]
+        }],
+        selected: []
       }],
       textInputValues: [{
         id: uuidv4(),
@@ -103,7 +107,9 @@ export default {
         },
         label: '姓名',
         labelFor: 'name',
-        placeholder: '請輸入姓名'
+        placeholder: '請輸入姓名',
+        text: '',
+        inputName: 'name',
       },{
         id: uuidv4(),
         classObj: {
@@ -111,7 +117,9 @@ export default {
         },
         label: '電話',
         labelFor: 'phone',
-        placeholder: '請輸入行動電話'
+        placeholder: '請輸入行動電話',
+        text: '',
+        inputName: 'phone',
       },{
         id: uuidv4(),
         classObj: {
@@ -119,7 +127,9 @@ export default {
         },
         label: 'Email',
         labelFor: 'email',
-        placeholder: '請輸入電子郵件信箱'
+        placeholder: '請輸入電子郵件信箱',
+        text: '',
+        inputName: 'email',
       },{
         id: uuidv4(),
         classObj: {
@@ -127,7 +137,9 @@ export default {
         },
         label: '地址',
         labelFor: 'address',
-        placeholder: '請輸入地址'
+        placeholder: '請輸入地址',
+        text: '',
+        inputName: 'address',
       }],
       stepButtonValues: [{
         id: uuidv4(),
@@ -135,19 +147,32 @@ export default {
         classObj: {
           'steps__next-step': true
         },
-        link: "shipping-form"
+        isAddressFromButton: true
       }],
       initialShippingFee: '',
       totalCost: 0
     }
   },
   methods: {
-    getShippingFee() {
-      this.initialShippingFee = JSON.parse(localStorage.getItem('shipping-fee')) || ''
+    handleSubmit(e) {
+      const form = e.target
+      const formData = new FormData(form)
+      for (let [key,value] of formData) {
+        this.saveToStorage(key, value)
+      }
+      this.$router.push('/shipping-form')
+    },
+    getAddressForm() {
+      this.selectValues[0].selected = localStorage.getItem('title') || 'Mr.'
+      this.selectValues[1].selected = localStorage.getItem('city') || 'default'
+      this.textInputValues[0].text = localStorage.getItem('name') || ''
+      this.textInputValues[1].text = localStorage.getItem('phone') || ''
+      this.textInputValues[2].text = localStorage.getItem('email') || ''
+      this.textInputValues[3].text = localStorage.getItem('address') || ''
     }
   },
   created() {
-    this.getShippingFee()
+    this.getAddressForm()
   }
 }
 </script>
@@ -157,7 +182,6 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__address-form {
-    // @extend %mainFrameStyle;
 
     // stepper的樣式設定
     > .address-form__container > .stepper > .stepper__container > .stepper__container--step {
@@ -199,15 +223,15 @@ export default {
         > .address {
           grid-area: address;
         }
+        > .address-form__steps {
+          position: absolute;
+          right: 0;
+          top: 70%;
+          width: 30%;
+        }
       }
       > .divide-line-wrapper {
         margin-top: 5rem;
-      }
-      > .address-form__steps {
-        position: absolute;
-        right: 0;
-        top: 70%;
-        width: 30%;
       }
     }
 

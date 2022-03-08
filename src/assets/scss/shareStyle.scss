@@ -9,13 +9,13 @@
 %stepShareStyle {
   display: flex;
   justify-content: space-between;
-  > .steps__link {
+  > .button-wrapper {
     flex-basis: 30%;
   }
 }
 
 // PaymentInfoForm與ShippingForm的分隔線共同樣式
-%divdeLineShareStyle {
+%divideLineShareStyle {
   > .divide-line::before {
     width: 39.5%;
   }

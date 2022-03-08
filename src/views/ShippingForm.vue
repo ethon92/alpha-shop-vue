@@ -5,14 +5,23 @@
       <div class="shipping-form__detail">
         <h3 class="shipping-form__title">運送方式</h3>
         <form class="shipping-form__form-parts">
-          <BaseRadioInput v-for="radioInputValue in radioInputValues" :key="radioInputValue.id" :radioInputValue="radioInputValue" @control-radio="afterClickRadio" />
+          <BaseRadioInput 
+            v-for="radioInputValue in radioInputValues" 
+            :key="radioInputValue.id" 
+            :radioInputValue="radioInputValue" 
+            @control-radio="afterClickRadio" 
+          />
+          <div class="shipping-form__steps">
+            <BaseStepButton 
+              v-for="stepButtonValue in stepButtonValues" 
+              :key="stepButtonValue.id" 
+              :step-button-value="stepButtonValue"
+            />
+          </div>
         </form>
       </div>
       <div class="divide-line-wrapper">
         <BaseDivideLine />
-      </div>
-      <div class="shipping-form__steps">
-        <BaseStepButton v-for="stepButtonValue in stepButtonValues" :key="stepButtonValue.id" :step-button-value="stepButtonValue"/>
       </div>
     </div>
   </section>
@@ -24,9 +33,11 @@ import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseRadioInput from '../components/BaseRadioInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
 import {v4 as uuidv4} from 'uuid'
+import { storageFunction } from '../utils/mixins'
 
 export default {
   name: 'ShippingForm',
+  mixins: [storageFunction],
   components: {
     Stepper,
     BaseStepButton,
@@ -77,7 +88,7 @@ export default {
         classObj: {
           'steps__previous-step': true
         },
-        link: '/'
+        link: '/address-from'
       },
       {
         id: uuidv4(),
@@ -110,7 +121,7 @@ export default {
       })
 
       // 將radioInputValues儲存至localStorage中
-      this.saveToStorage('radio-input-values', this.radioInputValues)
+      this.saveToStorage('radio-input-values', JSON.stringify(this.radioInputValues))
 
       // 利用id尋找出運費
       this.shippingFee = this.radioInputValues.filter(radioInputValue => radioInputValue.id === id)[0].shippingPrice
@@ -121,10 +132,6 @@ export default {
       // 將運費儲存至localStorage
       this.saveToStorage('shipping-fee', this.shippingFee)
     },
-    // 儲存至localStorage的方法
-    saveToStorage(itemName, item) {
-      localStorage.setItem(itemName, JSON.stringify(item))
-    }
   },
   created() {
     this.radioInputValues = JSON.parse(localStorage.getItem('radio-input-values')) || this.radioInputValues
@@ -158,15 +165,20 @@ export default {
     > .shipping-form__container {
       height: 130%;
       > .divide-line-wrapper {
-        @extend %divdeLineShareStyle;
-        margin-top: 9rem;
-      }
-      > .shipping-form__steps {
-        @extend %stepShareStyle;
-        margin-top: 10.5rem;
+        @extend %divideLineShareStyle;
+        margin-top: 8rem;
       }
       > .shipping-form__detail {
         margin-top: 2rem;
+        > .shipping-form__form-parts {   
+          position: relative;
+          > .shipping-form__steps {
+            @extend %stepShareStyle;
+            position: absolute;
+            bottom: -130%;
+            width: 100%;
+          }
+        }
       }
     }
   }
