@@ -264,9 +264,8 @@ export default {
 
     > .main__bill {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
     }
   }
 
