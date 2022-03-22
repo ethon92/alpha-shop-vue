@@ -1,7 +1,6 @@
 <template>
   <section class="main__shipping-form">
     <div class="shipping-form__container">
-      <Stepper :step-infos="stepInfos"/>
       <div class="shipping-form__detail">
         <h3 class="shipping-form__title">運送方式</h3>
         <form class="shipping-form__form-parts">
@@ -28,18 +27,17 @@
 </template>
 
 <script>
-import Stepper from '../components/Stepper.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseRadioInput from '../components/BaseRadioInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
 import {v4 as uuidv4} from 'uuid'
 import { storageFunction } from '../utils/mixins'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'ShippingForm',
   mixins: [storageFunction],
   components: {
-    Stepper,
     BaseStepButton,
     BaseRadioInput,
     BaseDivideLine
@@ -102,6 +100,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setShippingFee', 'setStepInfos', 'setIsShippingForm', 'setIsPaymentForm']),
     afterClickRadio(id) {
       // 運送方式選到時的外框樣式設定以及radio checked屬性設定
       this.radioInputValues = this.radioInputValues.map( radioInputValue => {
@@ -125,9 +124,9 @@ export default {
 
       // 利用id尋找出運費
       this.shippingFee = this.radioInputValues.filter(radioInputValue => radioInputValue.id === id)[0].shippingPrice
-
-      // 將shipping傳至App.vue
-      this.$emit('pass-shipping-fee', this.shippingFee)
+      
+      // 將shippingFee放入store中
+      this.setShippingFee(this.shippingFee)
 
       // 將運費儲存至localStorage
       this.saveToStorage('shipping-fee', this.shippingFee)
@@ -135,6 +134,9 @@ export default {
   },
   created() {
     this.radioInputValues = JSON.parse(localStorage.getItem('radio-input-values')) || this.radioInputValues
+    this.setStepInfos(this.stepInfos)
+    this.setIsShippingForm(true)
+    this.setIsPaymentForm(false)
   }
 }
 </script>
@@ -144,23 +146,6 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__shipping-form {
-
-    // stepper的樣式設定
-    > .shipping-form__container > .stepper > .stepper__container > .stepper__container--step {
-      &:nth-child(2) {
-        > .stepper__container--circle {
-          color: getMapColor("black");
-          border: 1px solid getMapColor("black");
-        }
-        > .stepper__container--title {
-          color: getMapColor("black");
-        }
-      }
-      > .stepper__container--connect-line::before {
-        height: 2px;
-      }
-    }
-
     // shippingForm的樣式設定
     > .shipping-form__container {
       height: 130%;

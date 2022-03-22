@@ -1,18 +1,22 @@
 <template>
   <div id="alpha-shop">
-    <main>
-      <router-view @pass-shipping-fee="getFee" />
-      <ShoppingCart :initial-shipping-fee="initialShippingFee"/>
-    </main>
+    <MainLayout>
+      <main>
+        <router-view />
+        <!-- <router-view @pass-shipping-fee="getFee" /> -->
+        <!-- <ShoppingCart :initial-shipping-fee="initialShippingFee"/> -->
+      </main>
+    </MainLayout>
   </div>
 </template>
 
 <script>
-import ShoppingCart from './components/ShoppingCart.vue'
+import MainLayout from './components/MainLayout.vue'
 
 export default {
   components: {
-    ShoppingCart
+    // ShoppingCart,
+    MainLayout
   },
   methods: {
     // 將從shipping-form傳出的shipping-fee放入initialShippingFee
@@ -36,7 +40,7 @@ export default {
 
   // 各種form與shopping-cart的排版
   main {
-    @extend %mainFrameStyle
+    width: 40%;
   }
 </style>
 

@@ -8,7 +8,7 @@
   .stepper__container--connect-line::before {
     content: '';
     position: absolute;
-    height: 1px;
+    height: 2px;
     background-color: getMapColor("black");
     left: -120%;
     right: 120%;

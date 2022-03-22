@@ -1,7 +1,6 @@
 <template>
   <section class="main__payment-info-form">
     <div class="payment-info-form__container">
-      <Stepper :step-infos="stepInfos"/>
       <h3 class="payment-info-form__title">付款資訊</h3>
       <form class="payment-info-form__form-parts">
         <BaseTextInput 
@@ -27,20 +26,19 @@
 </template>
 
 <script>
-import Stepper from '../components/Stepper.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseTextInput from '../components/BaseTextInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
 import BillModal from '../components/BillModal'
 import {v4 as uuidv4} from 'uuid'
 import { storageFunction } from '../utils/mixins'
+import { mapMutations } from 'vuex'
 
 
 export default {
   name: 'PaymentInfoForm',
   mixins: [storageFunction],
   components: {
-    Stepper,
     BaseStepButton,
     BaseTextInput,
     BaseDivideLine,
@@ -139,6 +137,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setStepInfos', 'setIsPaymentForm', 'setIsShippingForm']),
     afterClick(e) {
       const target = e.target
       if (target.matches('.steps__next-step')) {
@@ -188,6 +187,9 @@ export default {
   },
   created() {
     this.getPaymentInfoForm()
+    this.setStepInfos(this.stepInfos)
+    this.setIsShippingForm(false)
+    this.setIsPaymentForm(true)
   }
 }
 </script>
@@ -197,32 +199,6 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__payment-info-form {
-    // stepper的樣式設定
-    > .payment-info-form__container > .stepper > .stepper__container > .stepper__container--step {
-      &:nth-child(2) {
-        > .stepper__container--circle {
-          color: getMapColor("white");
-          background-color: getMapColor("black");
-          border: 1px solid getMapColor("black");
-        }
-        > .stepper__container--title {
-          color: getMapColor("black");
-        }
-      }
-      &:nth-child(3) {
-        > .stepper__container--circle {
-          color: getMapColor("black");
-          border: 1px solid getMapColor("black");
-        }
-        > .stepper__container--title {
-          color: getMapColor("black");
-        }
-      }
-      > .stepper__container--connect-line::before {
-        height: 2px;
-      }
-    }
-
     // paymentInfoForm的樣式設定
     > .payment-info-form__container {
       > .payment-info-form__form-parts {
@@ -249,13 +225,13 @@ export default {
         > .payment-info-form__steps {
           @extend %stepShareStyle;
           position: absolute;
-          bottom: -70%;
+          bottom: -68%;
           width: 100%;
         }
       }
       > .divide-line-wrapper {
         @extend %divideLineShareStyle;
-        margin-top: 5rem;
+        margin-top: 4rem;
       }
       > .payment-info-form__title {
         margin-top: 2rem;

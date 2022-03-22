@@ -2,7 +2,7 @@
   <div class="stepper">
     <h1>結帳</h1>
      <div class="stepper__container" >
-       <div class="stepper__container--step" v-for="stepInfo in stepInfos" :key="stepInfo.id">
+       <div class="stepper__container--step" v-for="stepInfo in this.stepInfos" :key="stepInfo.id">
         <BaseCircle :step-number="stepInfo.stepNum"/>
         <template v-if="!isFirstConnectLine(stepInfo.id)">
           <BaseConnectLine />
@@ -16,23 +16,19 @@
 <script>
 import BaseCircle from './BaseCircle.vue'
 import BaseConnectLine from './BaseConnectLine.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     BaseCircle,
     BaseConnectLine
   },
-  props: {
-    stepInfos: {
-      type: Array,
-      required: true
-    }
-  },
   methods: {
     isFirstConnectLine(id) {
       return id === 1
     }
-  }
+  },
+  computed: mapState(['stepInfos'])
 }
 </script>
 

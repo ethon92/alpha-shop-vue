@@ -1,7 +1,6 @@
 <template>
   <section class="main__address-form">
     <div class="address-form__container">
-      <Stepper :step-infos="stepInfos"/>
       <h3 class="address-form__title">寄送地址</h3>
       <form class="address-form__form-parts" @submit.prevent.stop="handleSubmit">
         <BaseSelect v-for="selectValue in selectValues" :key="selectValue.id" :select-value="selectValue"/>
@@ -18,19 +17,18 @@
 </template>
 
 <script>
-import Stepper from '../components/Stepper.vue'
 import BaseStepButton from '../components/BaseStepButton.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
 import BaseSelect from '../components/BaseSelect.vue'
 import BaseTextInput from '../components/BaseTextInput.vue'
 import {v4 as uuidv4} from 'uuid'
 import { storageFunction } from '../utils/mixins'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'AddressForm',
   mixins: [storageFunction],
   components: {
-    Stepper,
     BaseStepButton,
     BaseDivideLine,
     BaseSelect,
@@ -154,6 +152,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setStepInfos', 'setStepperStyle', 'setIsShippingForm']),
     handleSubmit(e) {
       const form = e.target
       const formData = new FormData(form)
@@ -173,6 +172,8 @@ export default {
   },
   created() {
     this.getAddressForm()
+    this.setStepInfos(this.stepInfos)
+    this.setIsShippingForm(false)
   }
 }
 </script>
@@ -182,14 +183,6 @@ export default {
   @import '../assets/scss/shareStyle.scss';
 
   .main__address-form {
-
-    // stepper的樣式設定
-    > .address-form__container > .stepper > .stepper__container > .stepper__container--step {
-      &:nth-child(2) > .stepper__container--connect-line::before {
-        height: 2px;
-      }
-    }
-
     // addressForm的樣式設定
     > .address-form__container {
       position: relative;
@@ -226,12 +219,12 @@ export default {
         > .address-form__steps {
           position: absolute;
           right: 0;
-          top: 70%;
+          top: 138%;
           width: 30%;
         }
       }
       > .divide-line-wrapper {
-        margin-top: 5rem;
+        margin-top: 4rem;
       }
     }
 

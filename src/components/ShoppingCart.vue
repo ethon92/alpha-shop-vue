@@ -15,7 +15,7 @@
     </div>
     <div class="shopping-cart__shipping-fee">
       <div class="shopping-cart__shipping-fee--title">運費</div>
-      <div class="shopping-cart__shipping-fee--price">{{ shippingFee ? shippingFee : '免費'}}</div>
+      <div class="shopping-cart__shipping-fee--price">{{ this.shippingFee ? this.shippingFee : '免費'}}</div>
     </div>
     <div class="shopping-cart__amount">
       <div class="shopping-cart__amount--title">小計</div>
@@ -26,6 +26,7 @@
 
 <script>
 import { storageFunction } from '../utils/mixins'
+import { mapState } from 'vuex'
 
 const dummyData = {
   shoppingCartProducts: [{
@@ -47,17 +48,10 @@ const dummyData = {
 export default {
   name: 'ShoppingCart',
   mixins: [storageFunction],
-  props: {
-    initialShippingFee: {
-      type: String,
-      required: true
-    }
-  },
   data() {
     return {
       shoppingCartProducts: [],
-      total: 0,
-      shippingFee: this.initialShippingFee
+      total: 0
     }
   },
   created() {
@@ -145,7 +139,9 @@ export default {
     addComma(num) {
       return new Intl.NumberFormat().format(num)
     }
-  }
+  },
+  // 從store中取出shippingFee
+  computed: mapState(['shippingFee'])
 }
 </script>
 
@@ -157,16 +153,16 @@ export default {
     border: 1px solid getMapColor('shop-cart-border-color');
     border-radius: 5px;
     background-color: getMapColor('shop-cart-color');
-    margin-top: 20%;
+    width: 25rem;
     // 商品樣式設定
     > .shopping-cart__product {
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       position: relative;
       color: getMapColor('text-color');
       padding: 1rem;
       > .product__description {
-        margin-left: 1rem;
+        margin-right: 3rem;
         > .product__description--amount {
           display: flex;
           justify-content: space-between;
@@ -185,11 +181,6 @@ export default {
             }
           }
         }
-      }
-      > .product__price {
-        position: absolute;
-        top: 12%;
-        right: 5%;
       }
     }
     // 總金額與運費樣式設定
