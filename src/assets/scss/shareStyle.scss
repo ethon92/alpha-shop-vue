@@ -7,13 +7,6 @@
   }
 }
 
-// PaymentInfoForm與ShippingForm的分隔線共同樣式
-%divideLineShareStyle {
-  > .divide-line::before {
-    width: 39.5%;
-  }
-}
-
 // PaymentInfoForm與AddressForm的form-parts共同樣式
 %formPartsShare {
   display: grid;

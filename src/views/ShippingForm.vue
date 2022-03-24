@@ -142,29 +142,47 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../assets/scss/shareColors.scss';
-  @import '../assets/scss/shareStyle.scss';
+@import '../assets/scss/shareColors.scss';
+@import '../assets/scss/shareStyle.scss';
 
-  .main__shipping-form {
-    // shippingForm的樣式設定
-    > .shipping-form__container {
-      height: 130%;
-      > .divide-line-wrapper {
-        @extend %divideLineShareStyle;
-        margin-top: 8rem;
-      }
-      > .shipping-form__detail {
-        margin-top: 2rem;
-        > .shipping-form__form-parts {   
-          position: relative;
-          > .shipping-form__steps {
-            @extend %stepShareStyle;
-            position: absolute;
-            bottom: -130%;
-            width: 100%;
-          }
+.main__shipping-form {
+  // shippingForm的樣式設定
+  > .shipping-form__container {
+    position: relative;
+    height: 130%;
+    > .divide-line-wrapper {
+      margin-top: 8rem;
+    }
+    > .shipping-form__detail {
+      margin-top: 2rem;
+      > .shipping-form__form-parts {   
+        position: relative;
+        > .shipping-form__steps {
+          @extend %stepShareStyle;
+          position: absolute;
+          bottom: -130%;
+          width: 100%;
         }
       }
     }
   }
+}
+
+// 當螢幕小於1200px時，
+// 分隔線與上下一步的設定
+@media screen and (max-width: 1200px) {
+  .main__shipping-form {
+    > .shipping-form__container {
+      > .divide-line-wrapper {
+        display: none;
+      }
+
+      > .shipping-form__detail 
+      > .shipping-form__form-parts 
+      > .shipping-form__steps {
+        bottom: -400%;
+      }
+    }
+  }
+}
 </style>

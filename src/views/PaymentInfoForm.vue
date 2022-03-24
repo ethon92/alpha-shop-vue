@@ -195,54 +195,71 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../assets/scss/shareColors.scss';
-  @import '../assets/scss/shareStyle.scss';
+@import '../assets/scss/shareColors.scss';
+@import '../assets/scss/shareStyle.scss';
 
-  .main__payment-info-form {
-    // paymentInfoForm的樣式設定
-    > .payment-info-form__container {
-      > .payment-info-form__form-parts {
-        @extend %formPartsShare;
-        grid-template-areas:
-          "name name name name . ."
-          "cardNum cardNum cardNum cardNum . ."
-          "validDate validDate validDate verifyNum verifyNum verifyNum"
+.main__payment-info-form {
+  // paymentInfoForm的樣式設定
+  > .payment-info-form__container {
+    position: relative;
+    > .payment-info-form__form-parts {
+      @extend %formPartsShare;
+      grid-template-areas:
+        "name name name name . ."
+        "cardNum cardNum cardNum cardNum . ."
+        "validDate validDate validDate verifyNum verifyNum verifyNum"
+    }
+    > .payment-info-form__form-parts {
+      position: relative;
+      > .name {
+        grid-area: name;
       }
-      > .payment-info-form__form-parts {
-        position: relative;
-        > .name {
-          grid-area: name;
-        }
-        > .card-number {
-          grid-area: cardNum;
-        }
-        > .valid-date {
-          grid-area: validDate;
-        }
-        > .verify-number {
-          grid-area: verifyNum;
-        }
-        > .payment-info-form__steps {
-          @extend %stepShareStyle;
-          position: absolute;
-          bottom: -68%;
-          width: 100%;
-        }
+      > .card-number {
+        grid-area: cardNum;
       }
-      > .divide-line-wrapper {
-        @extend %divideLineShareStyle;
-        margin-top: 4rem;
+      > .valid-date {
+        grid-area: validDate;
       }
-      > .payment-info-form__title {
-        margin-top: 2rem;
+      > .verify-number {
+        grid-area: verifyNum;
+      }
+      > .payment-info-form__steps {
+        @extend %stepShareStyle;
+        position: absolute;
+        bottom: -68%;
+        width: 100%;
       }
     }
-
-    > .main__bill {
-      position: fixed;
-      top: 0;
-      left: 0;
+    > .divide-line-wrapper {
+      margin-top: 4rem;
+    }
+    > .payment-info-form__title {
+      margin-top: 2rem;
     }
   }
 
+  > .main__bill {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+}
+
+// 當螢幕小於1200px時，
+// 分隔線與上下一步的設定
+@media screen and (max-width: 1200px) {
+  .main__payment-info-form {
+    > .payment-info-form__container {
+      > .divide-line-wrapper {
+        display: none;
+      }
+
+      > .payment-info-form__form-parts {
+        > .payment-info-form__steps {
+          bottom: -290%;
+        }
+      }
+    }
+  }
+}
 </style>

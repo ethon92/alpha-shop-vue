@@ -146,54 +146,65 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/scss/shareColors.scss';
+@import '../assets/scss/shareColors.scss';
 
-  // 購物籃樣式設定
-  .form__shopping-cart {
-    border: 1px solid getMapColor('shop-cart-border-color');
-    border-radius: 5px;
-    background-color: getMapColor('shop-cart-color');
-    width: 25rem;
-    // 商品樣式設定
-    > .shopping-cart__product {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      color: getMapColor('text-color');
-      padding: 1rem;
-      > .product__description {
-        margin-right: 3rem;
-        > .product__description--amount {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 1rem;
-          > .product__description--plus, .product__description--minus {
-            > button {
-              color: getMapColor('black');
-              border-radius: 50%;
-              border-style: none;
-              background-color: getMapColor('shipping-border-color');
-              padding: 0.2rem 0.5rem;
-              cursor: pointer;
-              &:hover {
-                box-shadow: 1px 1px 5px getMapColor('light-gray');
-              }
+// 購物籃樣式設定
+.form__shopping-cart {
+  border: 1px solid getMapColor('shop-cart-border-color');
+  border-radius: 5px;
+  background-color: getMapColor('shop-cart-color');
+  width: 25rem;
+  // 商品樣式設定
+  > .shopping-cart__product {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    color: getMapColor('text-color');
+    padding: 1rem;
+    > .product__description {
+      margin-right: 3rem;
+      > .product__description--amount {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        > .product__description--plus, .product__description--minus {
+          > button {
+            color: getMapColor('black');
+            border-radius: 50%;
+            border-style: none;
+            background-color: getMapColor('shipping-border-color');
+            padding: 0.2rem 0.5rem;
+            cursor: pointer;
+            &:hover {
+              box-shadow: 1px 1px 5px getMapColor('light-gray');
             }
           }
         }
       }
     }
-    // 總金額與運費樣式設定
-    > .shopping-cart__shipping-fee, .shopping-cart__amount {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid getMapColor('shop-cart-border-color');
-      color: getMapColor('text-color');
-      padding: 1rem;
-      margin: 1rem;
-    }
-    > .shopping-cart__title {
-      padding: 1rem;
+  }
+  // 總金額與運費樣式設定
+  > .shopping-cart__shipping-fee, .shopping-cart__amount {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid getMapColor('shop-cart-border-color');
+    color: getMapColor('text-color');
+    padding: 1rem;
+    margin: 1rem;
+  }
+  > .shopping-cart__title {
+    padding: 1rem;
+  }
+}
+
+// 當寬度小於700px之後，商品名稱與價格間距縮小
+@media screen and (max-width: 700px) {
+  .form__shopping-cart {
+    > .shopping-cart__product {
+      > .product__description {
+        margin-right: 0.5rem;
+      }
     }
   }
+}
 </style>

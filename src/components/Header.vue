@@ -25,6 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 將header改成flexbox可達到與螢幕自動伸縮
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -41,7 +42,7 @@ export default {
   }
 
   > .navbar__icon-group {
-    margin-right: 15rem;
+    margin-right: 12rem;
     > .navbar__icon-group--search-icon,
       .navbar__icon-group--shopCart-icon {
         padding-right: 1rem;

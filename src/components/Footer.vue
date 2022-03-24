@@ -47,11 +47,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 將footer改成flexbox可達到與螢幕自動伸縮
 .footer {
   display: flex;
   justify-content: space-between;
   margin-left: 10rem;
-  width: 74%;
+  width: 76%;
 
   > .footer__service > .service__title,
     .footer__about > .about__title,

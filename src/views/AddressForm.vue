@@ -179,54 +179,69 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../assets/scss/shareColors.scss';
-  @import '../assets/scss/shareStyle.scss';
+@import '../assets/scss/shareColors.scss';
+@import '../assets/scss/shareStyle.scss';
 
-  .main__address-form {
-    // addressForm的樣式設定
-    > .address-form__container {
-      position: relative;
-      height: 130%;
-      > .address-form__title {
-        margin-top: 2rem;
+.main__address-form {
+  // addressForm的樣式設定
+  > .address-form__container {
+    position: relative;
+    height: 130%;
+    > .address-form__title {
+      margin-top: 2rem;
+    }
+    > .address-form__form-parts {
+      @extend %formPartsShare;
+      grid-template-areas:
+        "title title name name name name"
+        "phoneNum phoneNum phoneNum email email email"
+        "city city address address address address"
+    }
+    > .address-form__form-parts {
+      > .title {
+        grid-area: title;
       }
-      > .address-form__form-parts {
-        @extend %formPartsShare;
-        grid-template-areas:
-          "title title name name name name"
-          "phoneNum phoneNum phoneNum email email email"
-          "city city address address address address"
+      > .name {
+        grid-area: name;
       }
-      > .address-form__form-parts {
-        > .title {
-          grid-area: title;
-        }
-        > .name {
-          grid-area: name;
-        }
-        > .phone-number {
-          grid-area: phoneNum;
-        }
-        > .email {
-          grid-area: email;
-        }
-        > .city {
-          grid-area: city;
-        }
-        > .address {
-          grid-area: address;
-        }
-        > .address-form__steps {
-          position: absolute;
-          right: 0;
-          top: 138%;
-          width: 30%;
-        }
+      > .phone-number {
+        grid-area: phoneNum;
       }
-      > .divide-line-wrapper {
-        margin-top: 4rem;
+      > .email {
+        grid-area: email;
+      }
+      > .city {
+        grid-area: city;
+      }
+      > .address {
+        grid-area: address;
+      }
+      > .address-form__steps {
+        position: absolute;
+        right: 0;
+        top: 138%;
+        width: 30%;
       }
     }
-
+    > .divide-line-wrapper {
+      position: relative;
+      margin-top: 4rem;
+    }
   }
+
+}
+
+// 當螢幕小於1200px時，
+// 分隔線與上下一步的設定
+@media screen and (max-width: 1200px) {
+  .main__address-form > .address-form__container {
+    > .address-form__form-parts > .address-form__steps {
+      top: 330%;
+    }
+
+    > .divide-line-wrapper {
+      display: none;
+    }
+  }
+}
 </style>
