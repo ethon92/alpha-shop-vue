@@ -33,7 +33,7 @@ main {
 
 // body樣式設定
 body {
-  background-color: getMapColor("white");
+  background-color: getMapColor($light-mode, "body-background-color");
   font-family: "Noto Sans TC", sans-serif; /* 設定字型 */
   font-size: 1rem;
   margin: 0;

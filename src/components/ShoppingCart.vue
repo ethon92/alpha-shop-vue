@@ -1,5 +1,5 @@
 <template>
-  <div class="form__shopping-cart">
+  <div class="form__shopping-cart" :class="{ 'dark-mode': darkMode }">
     <h3 class="shopping-cart__title">購物籃</h3>
     <div class="shopping-cart__product" v-for="product in shoppingCartProducts" :key="product.id">
       <img :src="product.image" alt="product-image">
@@ -141,7 +141,7 @@ export default {
     }
   },
   // 從store中取出shippingFee
-  computed: mapState(['shippingFee'])
+  computed: mapState(['shippingFee', 'darkMode'])
 }
 </script>
 
@@ -150,16 +150,16 @@ export default {
 
 // 購物籃樣式設定
 .form__shopping-cart {
-  border: 1px solid getMapColor('shop-cart-border-color');
+  border: 1px solid getMapColor($light-mode, "shop-cart-border-color");
   border-radius: 5px;
-  background-color: getMapColor('shop-cart-color');
+  background-color: getMapColor($light-mode, "shop-cart-color");
   width: 25rem;
   // 商品樣式設定
   > .shopping-cart__product {
     display: flex;
     justify-content: space-between;
     position: relative;
-    color: getMapColor('text-color');
+    color: getMapColor($light-mode, "text-color");
     padding: 1rem;
     > .product__description {
       margin-right: 3rem;
@@ -169,14 +169,14 @@ export default {
         margin-top: 1rem;
         > .product__description--plus, .product__description--minus {
           > button {
-            color: getMapColor('black');
+            color: getMapColor($light-mode, "black");
             border-radius: 50%;
             border-style: none;
-            background-color: getMapColor('shipping-border-color');
+            background-color: getMapColor($light-mode, "shipping-border-color");
             padding: 0.2rem 0.5rem;
             cursor: pointer;
             &:hover {
-              box-shadow: 1px 1px 5px getMapColor('light-gray');
+              box-shadow: 1px 1px 5px getMapColor($light-mode, "light-gray");
             }
           }
         }
@@ -184,17 +184,53 @@ export default {
     }
   }
   // 總金額與運費樣式設定
-  > .shopping-cart__shipping-fee, .shopping-cart__amount {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid getMapColor('shop-cart-border-color');
-    color: getMapColor('text-color');
-    padding: 1rem;
-    margin: 1rem;
-  }
+  > .shopping-cart__shipping-fee, 
+    .shopping-cart__amount {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid getMapColor($light-mode, "shop-cart-border-color");
+      color: getMapColor($light-mode, "text-color");
+      padding: 1rem;
+      margin: 1rem;
+    }
   > .shopping-cart__title {
     padding: 1rem;
   }
+}
+
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  background-color: getMapColor($dark-mode, "shop-cart-color");
+  border: 1px solid getMapColor($dark-mode, "shop-cart-border-color");
+  color: getMapColor($dark-mode, "text-color");
+
+  > .shopping-cart__product {
+    > .product__description {
+      color: getMapColor($dark-mode, "text-color");
+
+      > .product__description--amount
+      > .product__description--plus
+      > button {
+        background-color: getMapColor($dark-mode, "shipping-border-color");
+      }
+
+      > .product__description--amount
+      > .product__description--minus
+      > button {
+        background-color: getMapColor($dark-mode, "shipping-border-color");
+      }
+    }
+
+    > .product__price {
+      color: getMapColor($dark-mode, "text-color");
+    }
+  }
+  
+  > .shopping-cart__shipping-fee,
+    .shopping-cart__amount {
+      color: getMapColor($dark-mode, "text-color");
+      border-top: 1px solid getMapColor($dark-mode, "shop-cart-border-color");
+    }
 }
 
 // 當寬度小於700px之後，商品名稱與價格間距縮小

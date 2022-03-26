@@ -1,8 +1,8 @@
 <template>
-  <section class="main__shipping-form">
+  <section class="main__shipping-form" :class="{ 'dark-mode': darkMode }">
     <div class="shipping-form__container">
       <div class="shipping-form__detail">
-        <h3 class="shipping-form__title">運送方式</h3>
+        <h2 class="shipping-form__title">運送方式</h2>
         <form class="shipping-form__form-parts">
           <BaseRadioInput 
             v-for="radioInputValue in radioInputValues" 
@@ -32,7 +32,7 @@ import BaseRadioInput from '../components/BaseRadioInput.vue'
 import BaseDivideLine from '../components/BaseDivideLine.vue'
 import {v4 as uuidv4} from 'uuid'
 import { storageFunction } from '../utils/mixins'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'ShippingForm',
@@ -137,7 +137,8 @@ export default {
     this.setStepInfos(this.stepInfos)
     this.setIsShippingForm(true)
     this.setIsPaymentForm(false)
-  }
+  },
+  computed: mapState(['darkMode'])
 }
 </script>
 
@@ -164,6 +165,16 @@ export default {
           width: 100%;
         }
       }
+    }
+  }
+}
+
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  > .shipping-form__container
+  > .shipping-form__detail {
+    > .shipping-form__title {
+      color: getMapColor($dark-mode, text-color);
     }
   }
 }

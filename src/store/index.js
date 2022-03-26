@@ -8,7 +8,8 @@ export default new Vuex.Store({
     shippingFee: '',
     stepInfos: [],
     isShippingForm: false,
-    isPaymentForm: false
+    isPaymentForm: false,
+    darkMode: false,
   },
   getters: {
   },
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     setIsPaymentForm(state, status) {
       state.isPaymentForm = status
+    },
+    setDarkMode(state, status) {
+      state.darkMode = status
     }
   },
   actions: {

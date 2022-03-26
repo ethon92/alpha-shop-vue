@@ -1,7 +1,13 @@
 <template>
-  <div class="main-layout">
+  <div class="main-layout" :class="{ 'dark-mode': darkMode }">
     <Header class="main-layout__header"/>
-    <Stepper class="main-layout__stepper" :class="{isShippingForm, isPaymentForm}"/>
+    <Stepper 
+      class="main-layout__stepper" 
+      :class="{ 
+        'main-layout__stepper--is-shipping-form': isShippingForm, 
+        'main-layout__stepper--is-payment-form': isPaymentForm
+      }"
+    />
     <slot></slot>
     <ShoppingCart class="main-layout__shopping-cart" />
     <div class="main-layout__divide-line-wrapper">
@@ -31,7 +37,7 @@ export default {
     ShoppingCart,
     BaseDivideLine
   },
-  computed: mapState(['isShippingForm', 'isPaymentForm'])
+  computed: mapState(['isShippingForm', 'isPaymentForm', 'darkMode'])
 }
 </script>
 
@@ -39,10 +45,9 @@ export default {
 @import '../assets/scss/shareColors.scss';
 
 .main-layout {
-  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
-  max-width: 1536px; // 整個表單最大的寬度只到1536px
+  max-width: 1530px; // 整個表單最大的寬度只到1536px
 
   > .main-layout__header {
     width: 100%;
@@ -55,63 +60,63 @@ export default {
     margin-top: 3rem;
 
     // stepper第二條連接線初始顏色
-    > .stepper__container 
-    > .stepper__container--step:nth-child(2) 
-    > .stepper__container--connect-line-wrapper 
-    >.stepper__container--connect-line::before {
-      background-color: getMapColor("stepper-connect-line-color");
-    }
+    // > .stepper__container 
+    // > .stepper__container--step:nth-child(2) 
+    // > .stepper__container--connect-line-wrapper 
+    // >.stepper__container--connect-line::before {
+    //   background-color: getMapColor($light-mode, "stepper-connect-line-color");
+    // }
   }
 
   // 當stepper在shipping-form頁面時的樣式設定
-  > .isShippingForm {
+  > .main-layout__stepper--is-shipping-form {
     > .stepper__container {
       > .stepper__container--step:nth-child(2) {
         > .stepper__container--circle {
-          color: getMapColor("black");
-          border: 1px solid getMapColor("black");
+          color: getMapColor($light-mode, "black");
+          border: 1px solid getMapColor($light-mode, "black");
         }
 
         > .stepper__container--title {
-          color: getMapColor("black");
+          color: getMapColor($light-mode, "black");
         }
 
         > .stepper__container--connect-line-wrapper
         > .stepper__container--connect-line::before {
-          background-color: getMapColor("black");
+          background-color: getMapColor($light-mode, "black");
         }
       }
     }
   }
 
   // 當stepper在payment-form頁面時的樣式設定
-  > .isPaymentForm {
+  > .main-layout__stepper--is-payment-form {
     > .stepper__container {
       > .stepper__container--step:nth-child(2) {
       > .stepper__container--circle {
-        color: getMapColor("white");
-        background-color: getMapColor("black");
-        border: 1px solid getMapColor("black");
+        color: getMapColor($light-mode, "white");
+        background-color: getMapColor($light-mode, "black");
+        border: 1px solid getMapColor($light-mode, "black");
       }
 
       > .stepper__container--title {
-        color: getMapColor("black");
+        color: getMapColor($light-mode, "black");
       }
 
       > .stepper__container--connect-line-wrapper
       > .stepper__container--connect-line::before {
-        background-color: getMapColor("black");
+        background-color: getMapColor($light-mode, "black");
       }
     }
 
       > .stepper__container--step:last-child {
         > .stepper__container--circle {
-          color: getMapColor("black");
-          border: 1px solid getMapColor("black");
+          color: getMapColor($light-mode, "black");
+          border: 1px solid getMapColor($light-mode, "black");
         }
 
         > .stepper__container--title {
-          color: getMapColor("black");
+          color: getMapColor($light-mode, "black");
         }
       }
     }
@@ -121,7 +126,7 @@ export default {
   > .main-layout__footer {
     margin-top: 10rem;
     width: 100%;
-    background-color: getMapColor("footer-background-color");
+    background-color: getMapColor($light-mode, "footer-background-color");
   }
 
   // 在螢幕寬度小於1200px以前main layout的divide line要隱藏
@@ -130,10 +135,66 @@ export default {
   }
 }
 
-// 當螢幕寬度大於1536之後，將整個表單置中
-@media screen and (min-width: 1536px) {
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  > .main-layout__footer {
+    background-color: getMapColor($dark-mode, "footer-background-color");
+  }
+
+  // 在shipping-form頁面的顏色設定
+  > .main-layout__stepper--is-shipping-form
+  > .stepper__container
+  > .stepper__container--step:nth-child(2) {
+    > .stepper__container--circle {
+      color: getMapColor($dark-mode, "white");
+      border: 1px solid getMapColor($dark-mode, "white");
+    }
+
+    > .stepper__container--title {
+      color: getMapColor($dark-mode, "white");
+    }
+
+    > .stepper__container--connect-line-wrapper
+    > .stepper__container--connect-line::before {
+      background-color: getMapColor($dark-mode, "white");
+    }
+  }
+
+  // 在payment-form頁面的顏色設定
+  > .main-layout__stepper--is-payment-form
+  > .stepper__container {
+    > .stepper__container--step:nth-child(2) {
+      > .stepper__container--circle {
+        background-color: getMapColor($dark-mode, "stepper-background-color");
+      }
+
+      > .stepper__container--title {
+        color: getMapColor($dark-mode, "white");
+      }
+
+      > .stepper__container--connect-line-wrapper
+      > .stepper__container--connect-line::before {
+        background-color: getMapColor($dark-mode, "white");
+      }
+    }
+
+    > .stepper__container--step:nth-child(3) {
+      > .stepper__container--circle {
+        color: getMapColor($dark-mode, "white");
+        border: 1px solid getMapColor($dark-mode, "white");
+      }
+
+      > .stepper__container--title {
+        color: getMapColor($dark-mode, "white");
+      }
+    }
+  }
+}
+
+// 當螢幕寬度大於1540px之後，將整個表單置中
+@media screen and (min-width: 1540px) {
   .main-layout {
-    margin: 1rem auto 0 auto;
+    margin: 0 auto;
   }
 }
 

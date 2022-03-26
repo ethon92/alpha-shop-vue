@@ -1,5 +1,5 @@
 <template>
-  <section class="modal" v-if="bill.isChecked">
+  <section class="modal" :class="{ 'dark-mode': darkMode }" v-if="bill.isChecked">
     <ul class="bill__list">
       <li class="bill__list--title">稱謂：{{ bill.title }}</li>
       <li class="bill__list--name">姓名：{{ bill.name }}</li>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'BillModal',
   props: {
@@ -31,7 +33,8 @@ export default {
     closeBill() {
       this.$emit('after-click')
     }
-  }
+  },
+  computed: mapState(['darkMode'])
 }
 </script>
 
@@ -50,22 +53,37 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 20rem;
-    border: 1px solid getMapColor("white");
-    background-color: getMapColor("white");
+    border: 1px solid getMapColor($light-mode, "white");
+    background-color: getMapColor($light-mode, "white");
     border-radius: 5px;
     padding: 1rem;
     > .bill__list--button {
       margin-top: 1rem;
-      border: 1px solid getMapColor('white');
+      border: 1px solid getMapColor($light-mode, "white");
       border-radius: 5px;
       padding: 1rem;
-      color: getMapColor('white');
+      color: getMapColor($light-mode, "white");
       width: 100%;
-      background-color: getMapColor('next-button-color');
+      background-color: getMapColor($light-mode, "next-button-color");
       cursor: pointer;
       &:hover {
-        box-shadow: 1px 1px 5px getMapColor('light-gray');
+        box-shadow: 1px 1px 5px getMapColor($light-mode, "light-gray");
       }
+    }
+  }
+}
+
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  background-color: rgba(255, 255, 255, 0.7);
+
+  > .bill__list {
+    border: 1px solid getMapColor($dark-mode, "body-background-color");
+    background-color: getMapColor($dark-mode, "body-background-color");
+    color: getMapColor($dark-mode, "white");
+
+    > .bill__list--button {
+      border: 1px solid getMapColor($dark-mode, "body-background-color");
     }
   }
 }

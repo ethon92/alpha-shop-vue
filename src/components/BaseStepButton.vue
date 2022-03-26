@@ -1,5 +1,5 @@
 <template>
-  <div class="button-wrapper">
+  <div class="button-wrapper" :class="{ 'dark-mode': darkMode }">
     <!-- 因為address-form要使用submit事件，所以button外層不能被router link包住 -->
     <button
       v-if="stepButtonValue.isAddressFromButton" 
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'BaseStepButton',
   props: {
@@ -38,35 +40,54 @@ export default {
     afterClick(e) {
       this.$emit('handle-click', e)
     }
-  }  
+  },
+  computed: mapState(['darkMode']) 
 }
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/scss/shareColors.scss';
+@import '../assets/scss/shareColors.scss';
 
-  .steps__next-step {
-    border: 1px solid getMapColor('white');
-    border-radius: 5px;
-    padding: 1rem;
-    color: getMapColor('white');
-    width: 100%;
-    background-color: getMapColor('next-button-color');
-    cursor: pointer;
-    &:hover {
-      box-shadow: 1px 1px 5px getMapColor('light-gray');
-    }
+.steps__next-step {
+  border: 1px solid getMapColor($light-mode, "white");
+  border-radius: 5px;
+  padding: 1rem;
+  color: getMapColor($light-mode, "white");
+  width: 100%;
+  background-color: getMapColor($light-mode, "next-button-color");
+  cursor: pointer;
+  &:hover {
+    box-shadow: 1px 1px 5px getMapColor($light-mode, "light-gray");
+  }
+}
+
+.steps__previous-step {
+  padding: 1rem;
+  background-color: getMapColor($light-mode, "body-background-color");
+  border-style: none;
+  cursor: pointer;
+  color: getMapColor($light-mode, "text-color");
+  width: 100%;
+  &:hover {
+    box-shadow: 1px 1px 5px getMapColor($light-mode, "light-gray");
+  }
+}
+
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  > .steps__next-step {
+    border: 1px solid getMapColor($dark-mode, "body-background-color");
   }
 
-  .steps__previous-step {
-    padding: 1rem;
-    background-color: getMapColor('body-background-color');
-    border-style: none;
-    cursor: pointer;
-    color: getMapColor('text-color');
-    width: 100%;
-    &:hover {
-      box-shadow: 1px 1px 5px getMapColor('light-gray');
+  > .steps__link{
+    > .steps__next-step {
+      border: 1px solid getMapColor($dark-mode, "body-background-color");
+    }
+
+    > .steps__previous-step {
+      background-color: getMapColor($dark-mode, "body-background-color");
+      color: getMapColor($dark-mode, "text-color");
     }
   }
+}
 </style>

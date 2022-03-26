@@ -1,7 +1,7 @@
 <template>
-  <section class="main__address-form">
+  <section class="main__address-form" :class="{ 'dark-mode': darkMode }">
     <div class="address-form__container">
-      <h3 class="address-form__title">寄送地址</h3>
+      <h2 class="address-form__title">寄送地址</h2>
       <form class="address-form__form-parts" @submit.prevent.stop="handleSubmit">
         <BaseSelect v-for="selectValue in selectValues" :key="selectValue.id" :select-value="selectValue"/>
         <BaseTextInput v-for="textInputValue in textInputValues" :key="textInputValue.id" :text-input-value="textInputValue"/>
@@ -23,7 +23,7 @@ import BaseSelect from '../components/BaseSelect.vue'
 import BaseTextInput from '../components/BaseTextInput.vue'
 import {v4 as uuidv4} from 'uuid'
 import { storageFunction } from '../utils/mixins'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'AddressForm',
@@ -174,7 +174,8 @@ export default {
     this.getAddressForm()
     this.setStepInfos(this.stepInfos)
     this.setIsShippingForm(false)
-  }
+  },
+  computed: mapState(['darkMode'])
 }
 </script>
 
@@ -220,7 +221,7 @@ export default {
         position: absolute;
         right: 0;
         top: 138%;
-        width: 30%;
+        width: 10rem;
       }
     }
     > .divide-line-wrapper {
@@ -231,12 +232,20 @@ export default {
 
 }
 
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  > .address-form__container
+  > .address-form__title {
+    color: getMapColor($dark-mode, "text-color");
+  }
+}
+
 // 當螢幕小於1200px時，
 // 分隔線與上下一步的設定
 @media screen and (max-width: 1200px) {
   .main__address-form > .address-form__container {
     > .address-form__form-parts > .address-form__steps {
-      top: 330%;
+      top: 300%;
     }
 
     > .divide-line-wrapper {

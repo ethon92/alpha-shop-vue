@@ -1,7 +1,7 @@
 <template>
   <section class="main__payment-info-form">
     <div class="payment-info-form__container">
-      <h3 class="payment-info-form__title">付款資訊</h3>
+      <h2 class="payment-info-form__title">付款資訊</h2>
       <form class="payment-info-form__form-parts">
         <BaseTextInput 
           v-for="textInputValue in textInputValues" 
@@ -256,7 +256,7 @@ export default {
 
       > .payment-info-form__form-parts {
         > .payment-info-form__steps {
-          bottom: -290%;
+          bottom: -260%;
         }
       }
     }
