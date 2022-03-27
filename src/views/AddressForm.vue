@@ -220,13 +220,13 @@ export default {
       > .address-form__steps {
         position: absolute;
         right: 0;
-        top: 138%;
+        top: 125%;
         width: 10rem;
       }
     }
     > .divide-line-wrapper {
       position: relative;
-      margin-top: 4rem;
+      margin-top: 3rem;
     }
   }
 
@@ -251,6 +251,32 @@ export default {
     > .divide-line-wrapper {
       display: none;
     }
+  }
+}
+
+// 當螢幕小於800px時表單的設定
+@media screen and (max-width: 800px) {
+  .main__address-form {
+    > .address-form__container
+    > .address-form__form-parts {
+      > .address-form__steps {
+        top: 215%;
+      }
+
+      > .address-form__steps {
+        width: 100%;
+        margin-bottom: 10rem;
+      }
+
+      grid-template-columns: 40% 60%;
+      grid-template-rows: repeat(5, auto);
+      grid-template-areas:
+        "title name"
+        "phoneNum phoneNum"
+        "email email"
+        "city city"
+        "address address"
+    }  
   }
 }
 </style>

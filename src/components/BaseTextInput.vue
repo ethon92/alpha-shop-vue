@@ -47,6 +47,10 @@ export default {
       color: getMapColor($light-mode, 'input-placeholder-color');
     }
   }
+
+  > label {
+    color: getMapColor($light-mode, "form-label-color");
+  }
 }
 
 // 當轉換為dark-mode時的顏色設定

@@ -64,6 +64,7 @@ export default {
     z-index: -1;
     color: getMapColor($light-mode, 'text-color');
   }
+
   > select {
     -webkit-appearance: none;
     margin-top: 0.5rem;
@@ -82,6 +83,10 @@ export default {
     &:invalid {
       color: getMapColor($light-mode, 'input-placeholder-color');
     }
+  }
+
+  > label {
+    color: getMapColor($light-mode, "form-label-color");
   }
 }
 

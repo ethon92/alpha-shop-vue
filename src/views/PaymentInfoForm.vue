@@ -1,5 +1,5 @@
 <template>
-  <section class="main__payment-info-form">
+  <section class="main__payment-info-form" :class="{ 'dark-mode': darkMode }">
     <div class="payment-info-form__container">
       <h2 class="payment-info-form__title">付款資訊</h2>
       <form class="payment-info-form__form-parts">
@@ -32,7 +32,7 @@ import BaseDivideLine from '../components/BaseDivideLine.vue'
 import BillModal from '../components/BillModal'
 import {v4 as uuidv4} from 'uuid'
 import { storageFunction } from '../utils/mixins'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 
 export default {
@@ -190,7 +190,8 @@ export default {
     this.setStepInfos(this.stepInfos)
     this.setIsShippingForm(false)
     this.setIsPaymentForm(true)
-  }
+  },
+  computed: mapState(['darkMode'])
 }
 </script>
 
@@ -226,12 +227,12 @@ export default {
       > .payment-info-form__steps {
         @extend %stepShareStyle;
         position: absolute;
-        bottom: -68%;
+        bottom: -50%;
         width: 100%;
       }
     }
     > .divide-line-wrapper {
-      margin-top: 4rem;
+      margin-top: 3rem;
     }
     > .payment-info-form__title {
       margin-top: 2rem;
@@ -242,6 +243,14 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+  }
+}
+
+// 當轉換為dark-mode時的顏色設定
+.dark-mode {
+  > .payment-info-form__container
+  > .payment-info-form__title {
+    color: getMapColor($dark-mode, text-color);
   }
 }
 
@@ -259,6 +268,25 @@ export default {
           bottom: -260%;
         }
       }
+    }
+  }
+}
+
+// 當螢幕小於800px時表單的設定
+@media screen and (max-width: 800px) {
+  .main__payment-info-form {
+    > .payment-info-form__container
+    > .payment-info-form__form-parts {
+      > .payment-info-form__steps {
+        bottom: -240%;
+      }
+
+      grid-template-columns: 50% 50%;
+      grid-template-rows: repeat(3, auto);
+      grid-template-areas:
+        "name name"
+        "cardNum cardNum"
+        "validDate verifyNum"
     }
   }
 }

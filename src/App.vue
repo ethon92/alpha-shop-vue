@@ -1,5 +1,5 @@
 <template>
-  <div id="alpha-shop" :class="{ 'dark-mode': darkMode }">
+  <div id="alpha-shop">
     <MainLayout>
       <main>
         <router-view />
@@ -16,24 +16,32 @@ export default {
   components: {
     MainLayout
   },
-  computed: mapState(['darkMode'])
+  computed: mapState(['darkMode']),
+  watch: {
+    // 利用watch監控darkMode的值，以達到body背景顏色的切換
+    darkMode() {
+      const body = document.body
+
+      // 當darkMode值為true時的顏色
+      if (this.darkMode === true) {
+        return body.style.backgroundColor = '#121212'
+      } else {
+        // 當darkMode值為false時的顏色
+        return body.style.backgroundColor = '#fff'
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-  // 載入reset css
-  @import './assets/scss/main.scss';
-  @import './assets/scss/shareColors.scss';
+// 載入reset css
+@import './assets/scss/main.scss';
 
-  // 各種form的寬度
-  main {
-    width: 40%;
-  }
-
-  // 當轉換為dark-mode時的背景顏色
-  .dark-mode {
-    background-color: getMapColor($dark-mode, "body-background-color");
-  }
+// 各種form的寬度
+main {
+  width: 40%;
+}
 </style>
 
 

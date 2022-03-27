@@ -196,4 +196,16 @@ export default {
     }
   }
 }
+
+// 當螢幕小於800px時表單的設定
+@media screen and (max-width: 800px) {
+  .main__shipping-form {
+    > .shipping-form__container
+    > .shipping-form__detail 
+    > .shipping-form__form-parts 
+    > .shipping-form__steps {
+      bottom: -360%;
+    }
+  }
+}
 </style>

@@ -140,7 +140,7 @@ export default {
       return new Intl.NumberFormat().format(num)
     }
   },
-  // 從store中取出shippingFee
+  // 從store中取出shippingFee與darkMode
   computed: mapState(['shippingFee', 'darkMode'])
 }
 </script>
@@ -154,6 +154,7 @@ export default {
   border-radius: 5px;
   background-color: getMapColor($light-mode, "shop-cart-color");
   width: 25rem;
+
   // 商品樣式設定
   > .shopping-cart__product {
     display: flex;
@@ -233,13 +234,25 @@ export default {
     }
 }
 
-// 當寬度小於700px之後，商品名稱與價格間距縮小
-@media screen and (max-width: 700px) {
+// 當寬度小於800px之後，product__description與product__price的排版以及要隱藏title
+@media screen and (max-width: 800px) {
   .form__shopping-cart {
-    > .shopping-cart__product {
-      > .product__description {
-        margin-right: 0.5rem;
-      }
+    > .shopping-cart__title {
+      display: none;
+    }
+
+    > .shopping-cart__product
+    > .product__description {
+      position: absolute;
+      top: 1rem;
+      right: -2.5rem;
+    }
+
+    > .shopping-cart__product
+    > .product__price {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.8rem;
     }
   }
 }

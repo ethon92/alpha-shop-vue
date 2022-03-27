@@ -58,14 +58,6 @@ export default {
     width: 40%;
     margin-left: 10rem;
     margin-top: 3rem;
-
-    // stepper第二條連接線初始顏色
-    // > .stepper__container 
-    // > .stepper__container--step:nth-child(2) 
-    // > .stepper__container--connect-line-wrapper 
-    // >.stepper__container--connect-line::before {
-    //   background-color: getMapColor($light-mode, "stepper-connect-line-color");
-    // }
   }
 
   // 當stepper在shipping-form頁面時的樣式設定
@@ -221,6 +213,25 @@ export default {
         left: 30%;
         right: 30%;
       }
+    }
+  }
+}
+
+// 當螢幕寬度小於1200px時header寬度的設定
+@media screen and (max-width: 1050px) {
+  .main-layout {
+    > .main-layout__header {
+      width: 40%;
+    }
+  }
+}
+
+// 當螢幕寬度小於800px時footer隱藏
+@media screen and (max-width: 800px) {
+  .main-layout {
+    margin-bottom: 10rem;
+    > .main-layout__footer {
+      display: none;
     }
   }
 }
