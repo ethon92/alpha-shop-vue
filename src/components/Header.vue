@@ -169,15 +169,14 @@ export default {
     margin-left: 12rem;
     position: relative;
     > .navbar__list {
-      // display: block;
       opacity: 0;
       position: absolute;
       top: 2.5rem;
       left: -1px; // 因為stepper1的圓形邊框會露出來一點，所以要往左移動一些
       width: 100%;
       text-align: center;
-      background-color: getMapColor($light-mode, "body-background-color");
       z-index: 999;
+      background-color: getMapColor($light-mode, "body-background-color");
 
       > .navbar__list--man,
       > .navbar__list--woman,

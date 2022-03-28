@@ -268,7 +268,7 @@ export default {
         margin-bottom: 10rem;
       }
 
-      grid-template-columns: 40% 60%;
+      grid-template-columns: 40% 55%;
       grid-template-rows: repeat(5, auto);
       grid-template-areas:
         "title name"

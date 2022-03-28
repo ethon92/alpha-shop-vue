@@ -281,7 +281,7 @@ export default {
         bottom: -240%;
       }
 
-      grid-template-columns: 50% 50%;
+      grid-template-columns: 47.5% 47.5%;
       grid-template-rows: repeat(3, auto);
       grid-template-areas:
         "name name"

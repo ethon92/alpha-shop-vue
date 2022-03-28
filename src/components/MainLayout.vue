@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout" :class="{ 'dark-mode': darkMode }">
-    <Header class="main-layout__header"/>
+    <Header class="main-layout__header" />
     <Stepper 
       class="main-layout__stepper" 
       :class="{ 
@@ -217,7 +217,7 @@ export default {
   }
 }
 
-// 當螢幕寬度小於1200px時header寬度的設定
+// 當螢幕寬度小於1050px時header寬度的設定
 @media screen and (max-width: 1050px) {
   .main-layout {
     > .main-layout__header {
