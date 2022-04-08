@@ -10,6 +10,7 @@ ALPHA Shop - Vue版本
 + 選擇不同的運費會反應到購物籃內
 + 最後按下確認下單會顯示所有資訊
 + 有RWD切版
++ dark-mode/light-mode可由月亮或太陽圖示做切換
 
 ## Environment Setup - 環境建置
 
