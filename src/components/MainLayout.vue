@@ -49,6 +49,7 @@ export default {
   flex-wrap: wrap;
   max-width: 1530px; // 整個表單最大的寬度只到1536px
 
+  // header的寬度
   > .main-layout__header {
     width: 100%;
   }
@@ -205,8 +206,8 @@ export default {
 
     > .main-layout__divide-line-wrapper {
       width: 100%;
-      margin-top: 5rem;
-      display: initial;
+      margin-top: 4rem;
+      display: block;
 
       > .divide-line::before {
         width: initial;
@@ -254,6 +255,12 @@ export default {
 
     > .main-layout__header {
       width: 100%;
+    }
+
+    > .main-layout__divide-line-wrapper
+    > .divide-line::before {
+      left: 3%;
+      right: 6%;
     }
   }
 }
