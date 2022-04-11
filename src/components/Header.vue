@@ -7,7 +7,7 @@
     <ul class="navbar__list">
       <li class="navbar__list--man">男款</li>
       <li class="navbar__list--woman">女款</li>
-      <li class="navbar__list-news">最新消息</li>
+      <li class="navbar__list--news">最新消息</li>
       <li class="navbar__list--custom-product">客製商品</li>
       <li class="navbar__list--contact">聯絡我們</li>
       <li class="navbar__list--mobile-icon-group">
@@ -169,7 +169,10 @@ export default {
     margin-left: 12rem;
     position: relative;
     > .navbar__list {
-      opacity: 0;
+      display: block;
+      transform: scale(1, 0);
+      transition: transform 0.5s ease-in-out 0.2s;
+      transform-origin: top;
       position: absolute;
       top: 2.5rem;
       left: -1px; // 因為stepper1的圓形邊框會露出來一點，所以要往左移動一些
@@ -185,6 +188,15 @@ export default {
         border-bottom: 1px solid getMapColor($light-mode, "nav-border-color");
       }
 
+      > .navbar__list--man,
+      > .navbar__list--woman,
+      > .navbar__list--news,
+      > .navbar__list--custom-product,
+      > .navbar__list--contact,
+      > .navbar__list--mobile-icon-group {
+        opacity: 0;
+      }
+
       // 每個項目上下都加上距離
       > li {
         padding: 1rem 0;
@@ -196,9 +208,17 @@ export default {
     }
     
     > .navbar__list--toggle {
-      display: block;
-      opacity: 1;
-      transition: opacity 0.5s ease-in-out 0.2s; // 控制屬性 持續時間 變化函式 延遲時間
+      transform: scale(1, 1);
+
+      > .navbar__list--man,
+      > .navbar__list--woman,
+      > .navbar__list--news,
+      > .navbar__list--custom-product,
+      > .navbar__list--contact,
+      > .navbar__list--mobile-icon-group {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out 0.2s; // 控制屬性 持續時間 變化函式 延遲時間
+      }
     }
     
   }
@@ -251,6 +271,22 @@ export default {
 
     > .navbar__logo {
       flex: 0.8;
+    }
+  }
+}
+
+// 當螢幕寬度小於650px時的樣式設定
+@media screen and (max-width: 650px) {
+  .navbar {
+    margin: 0;
+    padding: 1rem;
+
+    > .navbar__logo {
+      flex: 0.7;
+    }
+
+    > .navbar__list {
+      top: 3.5rem;
     }
   }
 }

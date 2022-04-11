@@ -155,7 +155,6 @@ export default {
       margin-top: 8rem;
     }
     > .shipping-form__detail {
-      margin-top: 2rem;
       > .shipping-form__form-parts {   
         position: relative;
         > .shipping-form__steps {

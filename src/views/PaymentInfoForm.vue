@@ -234,9 +234,6 @@ export default {
     > .divide-line-wrapper {
       margin-top: 3rem;
     }
-    > .payment-info-form__title {
-      margin-top: 2rem;
-    }
   }
 
   > .main__bill {

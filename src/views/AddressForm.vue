@@ -188,9 +188,6 @@ export default {
   > .address-form__container {
     position: relative;
     height: 130%;
-    > .address-form__title {
-      margin-top: 2rem;
-    }
     > .address-form__form-parts {
       @extend %formPartsShare;
       grid-template-areas:

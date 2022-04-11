@@ -235,4 +235,26 @@ export default {
     }
   }
 }
+
+// 當螢幕寬度小於650px時從flex變成block的排版
+@media screen and (max-width: 650px) {
+  .main-layout {
+    display: block;
+
+    > .main-layout__stepper {
+      width: 100%;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    > .main-layout__shopping-cart {
+      width: 92%;
+      margin: 1rem;
+    }
+
+    > .main-layout__header {
+      width: 100%;
+    }
+  }
+}
 </style>

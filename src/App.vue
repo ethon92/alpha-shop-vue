@@ -38,9 +38,18 @@ export default {
 // 載入reset css
 @import './assets/scss/main.scss';
 
-// 各種form的寬度
+// 各種form的樣式設定
 main {
   width: 40%;
+  margin: 2rem 10rem;
+}
+
+@media screen and (max-width: 650px) {
+  main {
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+  }
 }
 </style>
 

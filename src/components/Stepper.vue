@@ -106,4 +106,28 @@ export default {
     }
   }
 }
+
+// 當螢幕寬度小於650px時要隱藏步驟名稱以及修改stepper的排版
+@media screen and (max-width: 650px) {
+  .stepper {
+    width: 100%;
+
+    > .stepper__container
+    > .stepper__container--step
+    > .stepper__container--title {
+      display: none;
+    }
+
+    > .stepper__container
+    > .stepper__container--step:last-child {
+      flex: 0;
+    }
+
+    > .stepper__container
+    > .stepper__container--step
+    > .stepper__container--connect-line-wrapper {
+      width: 100%;
+    }
+  }
+}
 </style>
