@@ -26,15 +26,15 @@ https://github.com/ethon92/alpha-shop-vue.git
 ```
 cd alpha-shop-vue
 ```
-3. 安裝Vue CLI
+3. 安裝node_modules
 ```
-npm install -g @vue/cli
+npm install
 ```
 4. 啟動專案
 ```
 npm run serve
 ```
-6. 開啟瀏覽器輸入 http://localhost:8080 即可進入Todo List
+6. 開啟瀏覽器輸入 http://localhost:8080 即可進入alpha-shop-vue
 
 ## Using Tools - 使用工具
 
